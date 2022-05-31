@@ -12,7 +12,9 @@
 
                 <x-jet-section-border />
             @endif
+                @livewire('app-logo')
 
+                <x-jet-section-border />
             @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
                 <div class="mt-10 sm:mt-0">
                     @livewire('profile.update-password-form')

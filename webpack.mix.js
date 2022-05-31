@@ -17,6 +17,7 @@ mix.js('resources/js/app.js', 'public/js')
         require('postcss-import'),
         require('tailwindcss'),
     ]);
+mix.copyDirectory('vendor/tinymce/tinymce', 'public/js/tinymce');
 
 if (mix.inProduction()) {
     mix.version();

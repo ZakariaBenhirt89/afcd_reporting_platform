@@ -51,7 +51,7 @@
                     {{ __('Already registered?') }}
                 </a>
 
-                <x-jet-button class="ml-4">
+                <x-jet-button class="ml-4" style="background-color: #22c55e">
                     {{ __('Register') }}
                 </x-jet-button>
             </div>

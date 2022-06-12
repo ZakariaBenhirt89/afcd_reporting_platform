@@ -27608,7 +27608,7 @@ var _hoisted_94 = {
 
 var _hoisted_95 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
   "class": "mt-8 text-base text-gray-400 md:mt-0 md:order-1"
-}, " © 2020 Workflow, Inc. All rights reserved. ", -1
+}, " © 2022 ISATECH, Inc. All rights reserved. ", -1
 /* HOISTED */
 );
 

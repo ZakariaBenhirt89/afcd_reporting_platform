@@ -32,6 +32,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::middleware(['auth:sanctum', 'verified' , 'user'])->get('/user', function () {
     return view('users.index');
 })->name('user');
+Route::mediaLibrary();
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/upload/photo', function (\Illuminate\Http\Request $request) {
    if ($request->hasFile("file")){

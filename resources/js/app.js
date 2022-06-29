@@ -6,11 +6,15 @@ import {createRouter , createWebHistory} from 'vue-router'
 import Landing from "./components/Landing";
 import Login from "./components/Login";
 import Editor from "./components/Editor";
+<<<<<<< HEAD
 import Landingone from "./components/Landingone";
+=======
+>>>>>>> parent of fd42589... handling preps
 
 window.Alpine = Alpine;
 
 Alpine.start();
+<<<<<<< HEAD
 const Home = { template: '<div>Home</div>' }
 const About = { template: '<div>About</div>' }
 
@@ -36,6 +40,9 @@ router.beforeResolve((to, from, next) => {
     next()
 })
 createApp(Landingone).mount('#app')
+=======
+createApp(Landing).mount('#app')
+>>>>>>> parent of fd42589... handling preps
 createApp(Login).mount('#login')
 function f() {
 

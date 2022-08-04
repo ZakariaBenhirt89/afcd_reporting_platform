@@ -20,5 +20,5 @@ Route::middleware('auth:passport')->get('/user', function (Request $request) {
 });
 Route::post('/v1/register', [Controller::class, 'register']);
 Route::post('/v1/login', [Controller::class, 'login']);
-Route::middleware('auth:api')->get('/v1/blogs' , [Controller::class, 'index']);
+Route::middleware('auth')->get('/v1/blogs' , [Controller::class, 'index']);
 

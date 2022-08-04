@@ -19,7 +19,7 @@
         <div class="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
             <div class="mx-auto w-full max-w-sm lg:w-96">
                 <div>
-                    <img class="h-12 w-auto" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1648467642/logoipsum-logo-54_ig8htc.svg" alt="Workflow" />
+                    <img class="h-14 w-auto" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659017596/eco_logo_b51rqq.png" alt="Workflow" />
                     <h2 class="mt-6 text-3xl font-extrabold text-gray-900">
                         Sign in to your account
                     </h2>
@@ -48,7 +48,7 @@
 
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
-                                    <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-green-500 border-gray-300 rounded" />
+                                    <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded" />
                                     <label for="remember-me" class="ml-2 block text-sm text-gray-900">
                                         Remember me
                                     </label>
@@ -62,7 +62,7 @@
                             </div>
 
                             <div>
-                                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" @click="login">
+                                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" @click="login">
                                     Sign in
                                 </button>
                             </div>

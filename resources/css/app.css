@@ -2,3 +2,7 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+.grayProblem {
+    font-size: 10pt;
+    font-weight: bold;
+}

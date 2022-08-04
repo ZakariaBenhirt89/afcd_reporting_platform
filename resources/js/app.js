@@ -6,15 +6,11 @@ import {createRouter , createWebHistory} from 'vue-router'
 import Landing from "./components/Landing";
 import Login from "./components/Login";
 import Editor from "./components/Editor";
-<<<<<<< HEAD
 import Landingone from "./components/Landingone";
-=======
->>>>>>> parent of fd42589... handling preps
 
 window.Alpine = Alpine;
 
 Alpine.start();
-<<<<<<< HEAD
 const Home = { template: '<div>Home</div>' }
 const About = { template: '<div>About</div>' }
 
@@ -40,11 +36,49 @@ router.beforeResolve((to, from, next) => {
     next()
 })
 createApp(Landingone).mount('#app')
-=======
-createApp(Landing).mount('#app')
->>>>>>> parent of fd42589... handling preps
 createApp(Login).mount('#login')
 function f() {
 
 }
+let map;
 
+function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 31.560951649067082, lng: -7.65937043446012 },
+        zoom: 20,
+    });
+    const contentString =
+        '<div id="content">' +
+        '<div id="siteNotice">' +
+        "</div>" +
+        '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
+        '<div id="bodyContent">' +
+        "<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large " +
+        "(last visited June 22, 2009).</p>" +
+        "</div>" +
+        "</div>";
+    const infowindow = new google.maps.InfoWindow({
+        content: contentString,
+    });
+    const beachMarker = new google.maps.Marker({
+        position: { lat: 31.56395583978245, lng: -7.664375884360373},
+        map,
+        icon: "https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659616403/Group_1_1_vpmh6t.png",
+        label: {
+            text: "Trash Problem",
+            className : 'grayProblem',
+            color: 'green'
+        }
+    });
+    beachMarker.addListener("click", () => {
+        infowindow.open({
+            anchor: beachMarker,
+            map,
+            shouldFocus: false,
+        });
+    });
+
+}
+
+
+window.initMap = initMap;

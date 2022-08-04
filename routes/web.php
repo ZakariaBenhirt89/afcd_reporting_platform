@@ -29,10 +29,15 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->get('/declarations', function () {
+    return view('declarations');
+})->name('declarations');
+Route::middleware(['auth:sanctum', 'verified'])->get('/users', function () {
+    return view('utilisateurs');
+})->name('users');
 Route::middleware(['auth:sanctum', 'verified' , 'user'])->get('/user', function () {
     return view('users.index');
 })->name('user');
-Route::mediaLibrary();
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/upload/photo', function (\Illuminate\Http\Request $request) {
    if ($request->hasFile("file")){

@@ -25,6 +25,7 @@
         @livewireStyles
 
         <!-- Scripts -->
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="{{ asset('js/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
         <script>
@@ -216,6 +217,10 @@
         <!-- Global notification live region, render this permanently at the end of the document -->
         <!-- This example requires Tailwind CSS v2.0+ -->
         <!-- Global notification live region, render this permanently at the end of the document -->
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+            defer
+        ></script>
 
     </body>
 </html>

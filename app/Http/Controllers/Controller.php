@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Fortify\ResetUserPassword;
 use App\Http\Resources\BlogResource;
 use App\Models\Blog;
+use App\Models\Issue;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -11,7 +13,10 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Jetstream\Jetstream;
 
 class Controller extends BaseController
 {
@@ -29,7 +34,7 @@ class Controller extends BaseController
         }
 
         $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
+        $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
         $success['token'] =  $user->createToken('MyApp')->accessToken;
         $success['name'] =  $user->name;
@@ -48,6 +53,45 @@ class Controller extends BaseController
             return response()->json(['status' => 400 , 'data' => "sorry you can't access"]);
         }
     }
+    public function registerByPhone(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'phone' => 'required',
+            'password' => 'required',
+            'c_password' => 'required|same:password',
+        ]);
+        $output= array();
+        preg_match("/^(06|07|05)\d{8}/" , $request->phone , $output);
+        Log::info(count($output));
+        if($validator->fails() ){
+            return response()->json(['status' => 500 , 'msg' => 'we have a problem']);
+        }
+        if ( count($output) <= 1){
+            return response()->json(['status' => 535 , 'msg' => 'your phone not matches']);
+        }
+
+        $input = $request->all();
+        $input['email'] = 'default'.uniqid().'@ecocitizen.com';
+        $input['password'] = Hash::make($input['password']);
+        $input['phone'] = $request->input("phone");
+        $user = User::create($input);
+        $success['token'] =  $user->createToken('MyApp')->plainTextToken;
+        $success['name'] =  $user->name;
+        $success['phone'] = $user->phone;
+
+        return response()->json(['status' => 200 , 'data' => $success]);
+    }
+    public function loginByPhone(Request $request){
+        if(Auth::attempt(['phone' => $request->phone, 'password' => $request->password])){
+            $user = Auth::user();
+            $success['token'] =  $user->createToken('MyApp')->plainTextToken;
+            $success['name'] =  $user->name;
+            return response()->json(['status' => 200 , 'data' => 'you did it' , 'accessToken' => $success]);
+        }
+        else{
+            return response()->json(['status' => 400 , 'data' => "sorry you can't access"]);
+        }
+    }
     public function index(): \Illuminate\Http\JsonResponse
     {
         $blogs = Blog::all() ;
@@ -55,6 +99,24 @@ class Controller extends BaseController
             return response()->json(['status' => 200 , 'msg' => "empty blogs"]);
         }
         return response()->json(['status' => 200 , 'data' => $blogs]);
+    }
+    public function storeIssue(Request $request){
+        Validator::make($request->input(), [
+            'issueTitle' => ['required', 'string', 'max:50'],
+            'issueDescription' => ['required', 'string', 'max:255'],
+            'issuePhoto' => ['required', 'string', 'max:255'],
+        ])->validate();
+        $issue = new Issue();
+        $issue->title = $request->input("issueTitle");
+        $issue->description = $request->input("issueDescription");
+        $issue->icon = $request->input("issuePhoto");
+        $issue->save();
+        return response()->json(['status' => 200 , 'result' => 'Stored']);
+    }
+    public function getIssues(): \Illuminate\Http\JsonResponse
+    {
+        $holder = Issue::all();
+        return response()->json(['status' => 200 , "result" => $holder]);
     }
     }
 

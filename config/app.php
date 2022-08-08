@@ -163,6 +163,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Berkayk\OneSignal\OneSignalServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -194,6 +195,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // ...
+        'OneSignal' => Berkayk\OneSignal\OneSignalFacade::class
     ])->toArray(),
 
 ];

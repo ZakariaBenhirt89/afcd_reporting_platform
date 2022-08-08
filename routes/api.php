@@ -19,6 +19,8 @@ Route::middleware('auth:passport')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::post('/v1/register', [Controller::class, 'register']);
+Route::post('/v1/register/phone', [Controller::class, 'registerByPhone']);
 Route::post('/v1/login', [Controller::class, 'login']);
-Route::middleware('auth')->get('/v1/blogs' , [Controller::class, 'index']);
+Route::post('/v1/login/phone', [Controller::class, 'loginByPhone']);
+Route::middleware('auth:sanctum')->get('/v1/blogs' , [Controller::class, 'index']);
 

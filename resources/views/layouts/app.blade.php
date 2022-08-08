@@ -93,6 +93,8 @@
                 content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
             });
         </script>
+        <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+
 
     </head>
     <body class="font-sans antialiased">

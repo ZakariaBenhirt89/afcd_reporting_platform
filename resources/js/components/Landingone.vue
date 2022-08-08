@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="hidden md:flex md:items-center md:space-x-6">
-                            <a :href="login" class="text-base font-medium text-white hover:text-gray-300"> Log in </a>
+                            <a :href="login" class="text-base font-medium text-white hover:text-gray-300" @click="login"> Log in </a>
                             <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-green-700"> create account </a>
                         </div>
                     </nav>
@@ -222,17 +222,17 @@
                     </div>
                 </div>
                 <div class="bg-gradient-to-r from-teal-500 to-cyan-600">
-                    <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
-                        <h2 class="text-center text-white text-sm font-semibold uppercase tracking-wide">Powered by</h2>
+                    <div class="max-w-9xl mx-auto py-16  sm:py-24 ">
+                        <h1 class="text-center text-white text-sm font-bold uppercase tracking-wide">Powered by</h1>
                         <div class="mt-8 grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-3">
                             <div class="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-                                <img class="h-13" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659209613/stylo_1_lic3al.png" alt="Tuple" />
+                                <img style="height: 6rem" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659209613/stylo_1_lic3al.png" alt="Tuple" />
                             </div>
                             <div class="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-                                <img class="h-13" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659209709/stylo_1_1_pstwah.png" alt="Mirage" />
+                                <img style="height: 6rem" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659209709/stylo_1_1_pstwah.png" alt="Mirage" />
                             </div>
                             <div class="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-                                <img class="h-13" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659017734/WhatsApp_Image_2022-07-26_at_12.13.54_AM-removebg-preview_qc1wyf.png" alt="StaticKit" />
+                                <img style="height: 6rem" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659017734/WhatsApp_Image_2022-07-26_at_12.13.54_AM-removebg-preview_qc1wyf.png" alt="StaticKit" />
                             </div>
 
                         </div>
@@ -287,9 +287,11 @@
             </footer>
         </div>
     </div>
+    <Copyright/>
 </template>
 
 <script>
+import Copyright from './Modal'
 import { defineComponent, h } from 'vue'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import {
@@ -507,6 +509,7 @@ export default {
         ExternalLinkIcon,
         MenuIcon,
         XIcon,
+        Copyright,
     },
     name: 'Landing',
     setup() {

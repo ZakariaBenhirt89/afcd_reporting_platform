@@ -3,11 +3,15 @@ require('./bootstrap');
 import Alpine from 'alpinejs';
 import { createApp } from 'vue'
 import {createRouter , createWebHistory} from 'vue-router'
+import Pusher from 'pusher-js';
 import Landing from "./components/Landing";
 import Login from "./components/Login";
 import Editor from "./components/Editor";
 import Landingone from "./components/Landingone";
-
+import Copyrigth from './components/Modal'
+import Loginphone from "./components/Loginphone";
+import Welcome from "./components/Welcome";
+import Report from './components/Wizard'
 window.Alpine = Alpine;
 
 Alpine.start();
@@ -37,14 +41,26 @@ router.beforeResolve((to, from, next) => {
 })
 createApp(Landingone).mount('#app')
 createApp(Login).mount('#login')
-function f() {
+createApp(Loginphone).mount('#phone')
+createApp(Welcome).mount('#welcome')
+createApp(Report).mount('#report')
 
-}
+let pusher = new Pusher(
+    "31ab671a12f47aa12622",{
+        cluster: 'eu'
+    });
+console.log(process.env.PUSHER_APP_ID)
+let channel = pusher.subscribe('nice-channel');
+channel.bind("loged-user" , function (data) {
+    console.log("the data")
+})
 let map;
 
 function initMap() {
+    const directionsService = new google.maps.DirectionsService();
+    const directionsRenderer = new google.maps.DirectionsRenderer();
     map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 31.560951649067082, lng: -7.65937043446012 },
+        center: { lat: 31.56395583978245, lng: -7.664375884360373},
         zoom: 20,
     });
     const contentString =
@@ -77,8 +93,17 @@ function initMap() {
             shouldFocus: false,
         });
     });
+    directionsRenderer.setMap(map);
+    directionsService.route({
+            origin: new google.maps.LatLng(31.562946177558118, -7.6654525584687),
+    destination: new google.maps.LatLng(31.56537783066596, -7.667190629903631),
+    travelMode: google.maps.TravelMode.DRIVING,
+}).then((response) => {
+        directionsRenderer.setDirections(response);
+    }).catch((e) => window.alert("Directions request failed due to " + status));
 
 }
 
-
-window.initMap = initMap;
+if (window.location.pathname === '/declarations'){
+    window.initMap = initMap;
+}

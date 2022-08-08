@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Jetstream\Http\Controllers\Livewire\ApiTokenController;
@@ -25,6 +26,9 @@ use Laravel\Jetstream\Http\Controllers\TeamInvitationController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/loginPhone', function () {
+    return view('auth.phone');
+});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
@@ -38,6 +42,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/users', function () {
 Route::middleware(['auth:sanctum', 'verified' , 'user'])->get('/user', function () {
     return view('users.index');
 })->name('user');
+Route::middleware(['auth:sanctum', 'verified'])->get('/report', function () {
+    return view('report');
+})->name('report');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/upload/photo', function (\Illuminate\Http\Request $request) {
    if ($request->hasFile("file")){
@@ -52,6 +59,20 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/upload/photo', function 
 
    }
 })->name('photo.upload');
+Route::middleware(['auth:sanctum', 'verified'])->post('/upload', function (\Illuminate\Http\Request $request) {
+    if ($request->hasFile("current")){
+        \Illuminate\Support\Facades\Log::info("the main one is there");
+        $path = $request->file('current')->store('public/image/blog');
+        $realPath = env("APP_URL").'/storage/'.str_replace("public/" ,'' ,  $path) ;
+        return response()->json(["path" => $realPath , "result" => true]);
+
+    }else{
+        \Illuminate\Support\Facades\Log::info("nothing there bro");
+        return response()->json(["result" => false]);
+
+    }
+})->name('upload');
+
 Route::middleware(['auth:sanctum', 'verified'])->post('/upload/logo', function (\Illuminate\Http\Request $request) {
         $path = $request->file('logo')->store('public/logo');
         $realPath = env("APP_URL").'/storage/'.str_replace("public/" ,'' ,  $path) ;
@@ -60,6 +81,19 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/upload/logo', function (
         $logo->save();
         return response()->json(["path" => $realPath , "result" => true]);
 })->name('logo.upload');
+Route::middleware(['auth:sanctum', 'verified'])->post('/upload/issue', function (\Illuminate\Http\Request $request) {
+    if ($request->hasFile('issue')){
+        $path = $request->file('issue')->store('public/logo');
+        $realPath = env("APP_URL").'/storage/'.str_replace("public/" ,'' ,  $path) ;
+        return response()->json(["path" => $realPath , "result" => true]);
+    }else{
+        \Illuminate\Support\Facades\Log::info("the problem");
+    }
+
+})->name('issue.upload');
+Route::middleware('auth:sanctum')->post('/store/issue' , [Controller::class, 'storeIssue']);
+Route::middleware('auth:sanctum')->get('/get/cat' , [Controller::class, 'getIssues']);
+
 Route::group(['middleware' => config('jetstream.middleware', ['web'])], function () {
     if (Jetstream::hasTermsAndPrivacyPolicyFeature()) {
         Route::get('/terms-of-service', [TermsOfServiceController::class, 'show'])->name('terms.show');

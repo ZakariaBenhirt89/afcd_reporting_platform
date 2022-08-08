@@ -1,9 +1,11 @@
 <?php
 namespace App\Http\Responses;
 
+use App\Events\LogedUser;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
 use Laravel\Fortify\Fortify;
+
 
 class LoginResponse implements LoginResponseContract
 {
@@ -15,7 +17,9 @@ class LoginResponse implements LoginResponseContract
      */
     public function toResponse($request)
     {
+        event(new LogedUser(Auth::user()));
         $home = Auth::user()->enabled ? '/dashboard' : '/user' ;
+
         return redirect()->intended($home);
     }
 }

@@ -125,16 +125,20 @@
         </div>
         <div  class="flex justify-between my-5">
             <button @click="step3 = false; step2= true ; steps[2].status = 'upcoming'; steps[1].status = 'current'" type="button" class="mx-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">previus</button>
-            <button type="button" class=" mx-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">send</button>
+            <button @click="sendReport" type="button" class=" mx-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">send</button>
         </div>
 
     </div>
+    <good v-if="done"></good>
+    <error v-if="error"></error>
 </template>
 
 <script>
 import {ref} from 'vue'
 import { CheckIcon } from '@heroicons/vue/solid'
 import axios from "axios";
+import Good from './Good'
+import Error from './Eroor'
 import { GoogleMap , Marker , MarkerCluster } from "vue3-google-map";
 import vueFilePond , {setOptions} from 'vue-filepond';
 
@@ -161,11 +165,13 @@ const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImage
 export default {
     name: 'Report',
     components: {
+        Error,
         CheckIcon,
         GoogleMap,
         Marker,
         MarkerCluster,
         FilePond,
+        Good,
     },
     setup() {
         const step1 = ref(true)
@@ -179,6 +185,9 @@ export default {
         const currentPlace = ref({ position: center, label: "L", title: "LADY LIBERTY"  })
         const arr = ref([])
         const cond = ref(true)
+        const path = ref('')
+        const done = ref(false)
+        const error = ref(false)
         return {
             steps,
             step1,
@@ -192,6 +201,9 @@ export default {
             labelPlace,
             arr,
             cond,
+            path,
+            done,
+            error
         }
     },
     methods: {
@@ -222,6 +234,25 @@ export default {
             console.log(e.latLng.lat() , e.latLng.lng() )
             this.arr.push({lat: e.latLng.lat(), lng: e.latLng.lng()  })
 
+        },
+        sendReport(e){
+            e.preventDefault()
+            const token = document.querySelector("[name='csrf-token']").getAttribute("content")
+            if (token !== null) {
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = token
+                axios.post('/store/report' , {
+                    "catId" : this.currentId,
+                    "lat": this.currentPlace.position.lat,
+                    'lng': this.currentPlace.position.lng,
+                    "cover": this.path
+                }).then((res) => {
+                    if (res.status === 200) {
+                      this.done = true
+                    }
+                }).catch((err) => {
+                    this.error = true
+                })
+            }
         }
     },
     mounted() {
@@ -241,7 +272,7 @@ export default {
                     onload: (response) => {
                         console.log(response)
                         const res = JSON.parse(response);
-                        console.log(res["path"])
+                        this.path = res["path"]
                     },
                     onerror: (response) => response.data,
                     ondata: (formData) => {

@@ -128,7 +128,7 @@
                             <p class="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Apply anywhere.</p>
                             <p class="mt-5 max-w-prose mx-auto text-xl text-gray-500">Designed to be handy and easy to use. friendly and cross platform.</p>
                         </div>
-                        <div class="mt-12 mb-5 sm:mb-10 lg:mb-5">
+                        <div class="mt-12 mb-5 sm:mb-10 lg:mb-5 flex justify-center">
                             <img class="rounded-lg shadow-xl ring-1 ring-black ring-opacity-5" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1658330698/Sans_titre_1080_750_px_1080_600_px_prqocj.png" alt="" />
                         </div>
                     </div>

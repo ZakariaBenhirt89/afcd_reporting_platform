@@ -6,7 +6,9 @@ use App\Actions\Fortify\ResetUserPassword;
 use App\Http\Resources\BlogResource;
 use App\Models\Blog;
 use App\Models\Issue;
+use App\Models\Report;
 use App\Models\User;
+use http\Env\Response;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -17,6 +19,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Jetstream\Jetstream;
+use PHPUnit\Exception;
 
 class Controller extends BaseController
 {
@@ -117,6 +120,32 @@ class Controller extends BaseController
     {
         $holder = Issue::all();
         return response()->json(['status' => 200 , "result" => $holder]);
+    }
+
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function storeReport(Request $request): \Illuminate\Http\JsonResponse
+    {
+        try {
+            Validator::make($request->input(), [
+                'catId' => ['required'],
+                'lng' => ['required'],
+                'lat' => ['required'],
+                'cover' => ['required']
+            ])->validate();
+        }catch (Exception $e){
+            return response()->json(["status" => 412 , "result" => "you missed something"]);
+        }
+        $report = new Report();
+        $report->categoryId = $request->input("catId");
+        $report->lng = $request->input("lng");
+        $report->lat = $request->input("lat");
+        $report->image = $request->input("cover");
+        $report->user_id = Auth::user()->id;
+        $report->state = "pending";
+        $report->save();
+        return  response()->json(["status" => 200 , "res" => "done"]);
     }
     }
 

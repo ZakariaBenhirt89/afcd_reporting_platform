@@ -7,6 +7,7 @@ use App\Http\Resources\BlogResource;
 use App\Models\Blog;
 use App\Models\Issue;
 use App\Models\Report;
+use App\Models\Resource;
 use App\Models\User;
 use http\Env\Response;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -145,6 +146,23 @@ class Controller extends BaseController
         $report->user_id = Auth::user()->id;
         $report->state = "pending";
         $report->save();
+        return  response()->json(["status" => 200 , "res" => "done"]);
+    }
+    public function storeRessource(Request $request){
+        try {
+            Validator::make($request->input(), [
+                'resTitle' => ['required'],
+                'resLink' => ['required'],
+                'resPhoto' => ['required']
+            ])->validate();
+        }catch (Exception $e){
+            return response()->json(["status" => 412 , "result" => "you missed something"]);
+        }
+        $res = new Resource();
+        $res->thumb = $request->input('resPhoto');
+        $res->link = $request->input("resLink");
+        $res->title = $request->input("resTitle");
+        $res->save();
         return  response()->json(["status" => 200 , "res" => "done"]);
     }
     }

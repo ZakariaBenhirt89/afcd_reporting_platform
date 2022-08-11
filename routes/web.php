@@ -93,6 +93,7 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/upload/issue', function 
 })->name('issue.upload');
 Route::middleware('auth:sanctum')->post('/store/issue' , [Controller::class, 'storeIssue']);
 Route::middleware('auth:sanctum')->post('/store/report' , [Controller::class, 'storeReport']);
+Route::middleware('auth:sanctum')->post('/store/ressource' , [Controller::class, 'storeRessource']);
 Route::middleware('auth:sanctum')->get('/get/cat' , [Controller::class, 'getIssues']);
 
 Route::group(['middleware' => config('jetstream.middleware', ['web'])], function () {

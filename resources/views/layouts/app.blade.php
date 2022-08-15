@@ -162,7 +162,6 @@
         </div>
 
         @livewireScripts
-        <script src="{{ mix('js/app.js') }}" defer></script>
         <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
         <script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"></script>
         <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
@@ -223,6 +222,7 @@
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
             defer
         ></script>
+        <script src="{{ mix('js/app.js') }}" defer></script>
 
     </body>
 </html>

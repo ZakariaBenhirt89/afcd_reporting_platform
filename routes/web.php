@@ -45,6 +45,9 @@ Route::middleware(['auth:sanctum', 'verified' , 'user'])->get('/user', function 
 Route::middleware(['auth:sanctum', 'verified'])->get('/report', function () {
     return view('report');
 })->name('report');
+Route::middleware(['auth:sanctum', 'verified'])->get('/issues', function () {
+    return view('issues');
+})->name('issues');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/upload/photo', function (\Illuminate\Http\Request $request) {
    if ($request->hasFile("file")){
@@ -95,6 +98,7 @@ Route::middleware('auth:sanctum')->post('/store/issue' , [Controller::class, 'st
 Route::middleware('auth:sanctum')->post('/store/report' , [Controller::class, 'storeReport']);
 Route::middleware('auth:sanctum')->post('/store/ressource' , [Controller::class, 'storeRessource']);
 Route::middleware('auth:sanctum')->get('/get/cat' , [Controller::class, 'getIssues']);
+Route::middleware('auth:sanctum')->get('/get/users' , [Controller::class, 'getUsers']);
 
 Route::group(['middleware' => config('jetstream.middleware', ['web'])], function () {
     if (Jetstream::hasTermsAndPrivacyPolicyFeature()) {

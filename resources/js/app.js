@@ -12,6 +12,10 @@ import Copyrigth from './components/Modal'
 import Loginphone from "./components/Loginphone";
 import Welcome from "./components/Welcome";
 import Report from './components/Wizard'
+import Notification from "./components/Notification"
+import Declarations from './components/Reports'
+import Issues from "./components/Issues";
+import Preview from "./components/Preview";
 window.Alpine = Alpine;
 
 Alpine.start();
@@ -43,7 +47,11 @@ createApp(Landingone).mount('#app')
 createApp(Login).mount('#login')
 createApp(Loginphone).mount('#phone')
 createApp(Welcome).mount('#welcome')
-createApp(Report).mount('#report')
+createApp(Report).mount('#map1')
+createApp(Notification).mount('#noti')
+createApp(Notification).mount('#noti2')
+createApp(Declarations).mount('#report')
+createApp(Issues).mount('#issues')
 
 let pusher = new Pusher(
     "31ab671a12f47aa12622",{
@@ -56,7 +64,7 @@ channel.bind("loged-user" , function (data) {
 })
 let map;
 
-function initMap() {
+function initMap(lat , lng) {
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
     map = new google.maps.Map(document.getElementById("map"), {
@@ -95,8 +103,8 @@ function initMap() {
     });
     directionsRenderer.setMap(map);
     directionsService.route({
-            origin: new google.maps.LatLng(31.562946177558118, -7.6654525584687),
-    destination: new google.maps.LatLng(31.56537783066596, -7.667190629903631),
+            origin: new google.maps.LatLng(31.56479673466521, -7.663478910112956),
+    destination: new google.maps.LatLng(lat , lng),
     travelMode: google.maps.TravelMode.DRIVING,
 }).then((response) => {
         directionsRenderer.setDirections(response);
@@ -104,6 +112,6 @@ function initMap() {
 
 }
 
-if (window.location.pathname === '/declarations'){
+if (window.location.pathname === '/declarations' || window.location.pathname === '/issues'  ){
     window.initMap = initMap;
 }

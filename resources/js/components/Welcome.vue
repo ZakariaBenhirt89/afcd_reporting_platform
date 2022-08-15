@@ -1,5 +1,5 @@
 <template>
-    <div class="flex md:flex-row md:items-center md:justify-between flex-col" style="height: 15vh">
+    <div class="flex md:flex-row md:items-center md:justify-between flex-col mx-5" style="height: 15vh">
         <div class="flex-1 min-w-0 flex">
             <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate mx-2" id="hello">Hello Msg</h2>
             <img id="ico" class="h-10 mx-3" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659609676/icons8-morning-80_lfsm4d.png" alt="hello pic"/>

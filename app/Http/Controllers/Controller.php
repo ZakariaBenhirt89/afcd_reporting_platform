@@ -165,5 +165,11 @@ class Controller extends BaseController
         $res->save();
         return  response()->json(["status" => 200 , "res" => "done"]);
     }
+    public function getUsers(){
+        $holder = array();
+        $users = User::all(["name" , 'email' , 'created_at'] );
+        return \response()->json($users);
+
+    }
     }
 

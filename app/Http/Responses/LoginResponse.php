@@ -17,6 +17,9 @@ class LoginResponse implements LoginResponseContract
      */
     public function toResponse($request)
     {
+        $user = Auth::user();
+        $user->isOnline  = true;
+        $user->save();
         event(new LogedUser(Auth::user()));
         $home = Auth::user()->enabled ? '/dashboard' : '/user' ;
 

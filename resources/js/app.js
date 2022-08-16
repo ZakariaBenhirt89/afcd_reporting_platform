@@ -16,6 +16,7 @@ import Notification from "./components/Notification"
 import Declarations from './components/Reports'
 import Issues from "./components/Issues";
 import Preview from "./components/Preview";
+import Map from './components/Map'
 window.Alpine = Alpine;
 
 Alpine.start();
@@ -52,6 +53,7 @@ createApp(Notification).mount('#noti')
 createApp(Notification).mount('#noti2')
 createApp(Declarations).mount('#report')
 createApp(Issues).mount('#issues')
+createApp(Map).mount('#map')
 
 let pusher = new Pusher(
     "31ab671a12f47aa12622",{
@@ -63,8 +65,10 @@ channel.bind("loged-user" , function (data) {
     console.log("the data")
 })
 let map;
+let map1;
 
 function initMap(lat , lng) {
+    console.log(lat , '********' , lng)
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
     map = new google.maps.Map(document.getElementById("map"), {
@@ -111,7 +115,27 @@ function initMap(lat , lng) {
     }).catch((e) => window.alert("Directions request failed due to " + status));
 
 }
+function showMap(){
+    map1 = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 31.56395583978245, lng: -7.664375884360373},
+        zoom: 20,
+    });
+    const beachMarker = new google.maps.Marker({
+        position: { lat: 31.56395583978245, lng: -7.664375884360373},
+        map1,
+        icon: "https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659616403/Group_1_1_vpmh6t.png",
+        label: {
+            text: "Trash Problem",
+            className : 'grayProblem',
+            color: 'green'
+        }
+    });
+}
 
-if (window.location.pathname === '/declarations' || window.location.pathname === '/issues'  ){
-    window.initMap = initMap;
+if ( window.location.pathname === '/issues'  ){
+    window.initMap = initMap
+
+}
+if (window.location.pathname === '/declarations' ){
+    window.showMap = showMap
 }

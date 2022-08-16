@@ -12,6 +12,14 @@
 
 
                 <!-- Navigation Links -->
+                @if(\Illuminate\Support\Facades\Auth::user()->isUser)
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('report') }}" :active="request()->routeIs('report')">
+                        {{ __('Report') }}
+                    </x-jet-nav-link>
+                </div>
+                @else
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Le tableau de bord') }}
@@ -27,16 +35,13 @@
                         {{ __('Les utilisateurs') }}
                     </x-jet-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('report') }}" :active="request()->routeIs('report')">
-                        {{ __('Report') }}
-                    </x-jet-nav-link>
-                </div>
+
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('issues') }}" :active="request()->routeIs('issues')">
                         {{ __('All Reports') }}
                     </x-jet-nav-link>
                 </div>
+                    @endif
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">

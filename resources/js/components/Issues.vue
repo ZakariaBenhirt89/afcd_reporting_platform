@@ -25,18 +25,20 @@
                             </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 bg-white">
-                            <tr v-for="(person, index) in people" :key="person.email">
-                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ person.name }}</td>
-                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">normal user</td>
-                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ person.email }}</td>
+                            <tr v-for="(person, index) in people" :key="person.id">
+                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ person.reporter }}</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ person.date}}</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                    <span :class="[getColor(person.state) , 'inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium']"> {{person.state}} </span>
+                                </td>
                                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                    <span v-if="index == people.length - 1" class="mx-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800 animate-bounce">
+                                    <span v-if="index == people.length - 1" class="mx-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800 animate-pulse">
     <svg class="mr-1.5 h-2 w-2 text-green-400" fill="#42b883" viewBox="0 0 8 8">
       <circle cx="4" cy="4" r="3" />
     </svg>
-    Small
+    new
   </span>
-                                    <a @click="open = true" href="#" class="text-green-600 hover:text-green-900"
+                                    <a :id="person.id" @click="handleOpen" href="#" class="text-green-600 hover:text-green-900"
                                     >preview<span class="sr-only"></span></a
                                     >
                                 </td>
@@ -60,10 +62,10 @@
                 <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to="opacity-100 translate-y-0 sm:scale-100" leave="ease-in duration-200" leave-from="opacity-100 translate-y-0 sm:scale-100" leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
                     <div class="relative inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:p-6" style="width: 60vw">
                         <div>
-                           <preview :lat="lat" :lng="lng"/>
+                           <preview :id="id" />
                         </div>
-                        <div class="mt-5 sm:mt-6">
-                            <button type="button" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:text-sm" @click="open = false">Go back to dashboard</button>
+                        <div class="mt-2">
+                            <button type="button" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:text-sm" @click="handleClose">Go back to dashboard</button>
                         </div>
                     </div>
                 </TransitionChild>
@@ -99,11 +101,13 @@ export default {
         //31.56395583978245, lng: -7.664375884360373
         const lat = ref(31.56395583978245)
         const lng = ref(-7.664375884360373)
+        const id = ref(1)
         return {
             people,
             open,
             lat,
             lng,
+            id,
         }
     },
     methods: {
@@ -116,10 +120,47 @@ export default {
                     this.people = res.data
                 })
             }
+        } ,
+        fetchData: function () {
+            const token = document.querySelector("[name='csrf-token']").getAttribute("content")
+            if (token !== null){
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = token
+                axios.get('/get/issues').then((res) => {
+                    console.log(res)
+                    this.people = res.data
+                })
+            }
+        } ,
+        getColor: function (name) {
+            //"review" , "proved" , "resolved" , "rejected"
+            switch (name) {
+             case 'pending':
+                 return 'bg-red-100 text-red-800'
+             case 'review':
+                 return 'bg-indigo-100 text-indigo-800'
+             case 'proved':
+                 return 'bg-green-100 text-green-800'
+             case 'resolved':
+                 return 'bg-blue-100 text-blue-800'
+             case 'rejected':
+                 return  'bg-gray-100 text-gray-800'
+              default:
+                  return  'bg-green-100 text-green-800'
+            }
+        },
+        handleOpen: function (e) {
+            this.id = e.target.id
+            this.open = true
+        },
+        handleClose: function(){
+            document.getElementById("map").innerHTML = ''
+            this.open = false
         }
-    },
+    }
+    ,
     mounted() {
-        this.fetchUsers()
+       // this.fetchUsers()
+        this.fetchData()
     }
 }
 </script>

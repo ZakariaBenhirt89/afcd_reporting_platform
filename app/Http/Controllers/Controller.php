@@ -171,5 +171,30 @@ class Controller extends BaseController
         return \response()->json($users);
 
     }
+    public function getIssuesAll(){
+        $arr = array();
+        $issues = Report::all();
+        foreach ($issues as $issue){
+            $id = $issue->id;
+            $reporter = User::find($issue->user_id)->name;
+            $lat = $issue->lat;
+            $lng = $issue->lng;
+            $image = $issue->image;
+            $catName = Issue::find($issue->categoryId)->title;
+            $date = $issue->created_at ;
+            $state = $issue->state;
+            $col = collect(['id' => $id ,'reporter' => $reporter , 'lat' => $lat , 'lng' => $lng , 'image' => $image , 'title' => $catName,'date' => $date , 'state' => $state]);
+            array_push($arr , $col) ;
+        }
+        if (count($arr) !== 0){
+            return \response()->json($arr);
+        }else{
+            return  \response()->json(['res' => 'no data']);
+        }
+    }
+    public function getMap($id){
+        $report = Report::find($id);
+        return \response()->json($report);
+    }
     }
 

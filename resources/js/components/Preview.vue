@@ -24,7 +24,7 @@
                 <div class="lg:grid lg:grid-cols-12 lg:auto-rows-min lg:gap-x-8 py-1 ">
                     <!-- Image gallery -->
                     <div class="my-8 lg:mt-0 lg:col-start-1 lg:col-span-7 lg:row-start-1 lg:row-span-3">
-                        <div id="map" style="width: 100%;height: 70%"></div>
+                        <div id="map" style="width: 100%;height: 100%"></div>
                     </div>
 
                     <div class="mt-2 lg:col-span-5">
@@ -32,38 +32,37 @@
 
                         <!-- Product details -->
                         <div class="mt-10">
-                            <h2 class="text-sm font-medium text-gray-900">Description</h2>
-
-                            <div class="mt-4 prose prose-sm text-gray-500" v-html="product.description" />
+                            <h2 class="text-sm font-medium text-gray-900">Image preview</h2>
+                            <img style="height: 100%;width: 100%" :src="image" alt="preview"/>
                         </div>
 
                         <div class="mt-8 border-t border-gray-200 pt-8">
-                            <h2 class="text-sm font-medium text-gray-900">Fabric &amp; Care</h2>
+                            <h2 class="text-sm font-medium text-gray-900">Description and state </h2>
 
                             <div class="mt-4 prose prose-sm text-gray-500">
-                                <ul role="list">
-                                    <li v-for="item in product.details" :key="item">{{ item }}</li>
-                                </ul>
+                                <div class="my-4">
+                                    <label for="comment" class="block text-sm font-medium text-gray-700">Add description</label>
+                                    <div class="mt-1">
+                                        <textarea v-bind="state" rows="4" name="comment" id="comment" class="shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+                                    </div>
+                                </div>
+                                <div class="my-4">
+                                    <label for="location" class="block text-sm font-medium text-gray-700">update the state</label>
+                                    <select v-bind="state" id="location" name="location" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm rounded-md">
+                                        <option></option>
+                                        <option value="pending">pending</option>
+                                        <option value="review">review</option>
+                                        <option value="proved">proved</option>
+                                        <option value="resolved">resolved</option>
+                                        <option value="rejected">rejected</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Policies -->
-                        <section aria-labelledby="policies-heading" class="mt-10">
-                            <h2 id="policies-heading" class="sr-only">Our Policies</h2>
-
-                            <dl class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-                                <div v-for="policy in policies" :key="policy.name" class="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
-                                    <dt>
-                                        <component :is="policy.icon" class="mx-auto h-6 w-6 flex-shrink-0 text-gray-400" aria-hidden="true" />
-                                        <span class="mt-4 text-sm font-medium text-gray-900">
-                      {{ policy.name }}
-                    </span>
-                                    </dt>
-                                    <dd class="mt-1 text-sm text-gray-500">
-                                        {{ policy.description }}
-                                    </dd>
-                                </div>
-                            </dl>
+                        <section aria-labelledby="policies-heading" class="mt-5">
+                            <button type="button" class="w-full items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Save</button>
                         </section>
                     </div>
                 </div>
@@ -78,6 +77,7 @@ import { StarIcon } from '@heroicons/vue/solid'
 import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue'
 import { CurrencyDollarIcon, GlobeIcon } from '@heroicons/vue/outline'
 import { GoogleMap , Marker , MarkerCluster } from "vue3-google-map";
+import axios from "axios";
 
 
 const product = {
@@ -140,7 +140,7 @@ const policies = [
 
 export default {
     name:'Preview',
-    props: ['lat' , 'lng'],
+    props: ['id'],
     components: {
         RadioGroup,
         RadioGroupLabel,
@@ -151,12 +151,16 @@ export default {
         MarkerCluster,
     },
     setup() {
+        const lat = ref('')
+        const lng = ref('')
         const selectedColor = ref(product.colors[0])
         const selectedSize = ref(product.sizes[2])
         const center = { lat:31.56717001089404, lng:-7.653935889683484 };
-        const labelPlace = ref({ })
+        const labelPlace = ref({})
         const currentPlace = ref({ position: center, label: "L", title: "LADY LIBERTY"  })
-
+        const image = ref('')
+        const desc = ref("")
+        const state = ref("")
         return {
             product,
             policies,
@@ -164,13 +168,81 @@ export default {
             selectedSize,
             center,
             currentPlace,
+            lat,
+            lng,
+            image,
+            desc,
+            state,
         }
     },
     mounted() {
         //lat: 31.56395583978245, lng: -7.664375884360373
+        this.getData()
         console.log(this.lat , this.lng)
         console.log(window.initMap)
-        initMap(this.lat, this.lng)
+    },
+    methods: {
+        startMap: function(lat , lng){
+            const directionsService = new google.maps.DirectionsService();
+            const directionsRenderer = new google.maps.DirectionsRenderer();
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 31.56395583978245, lng: -7.664375884360373},
+                zoom: 20,
+            });
+            const contentString =
+                '<div id="content">' +
+                '<div id="siteNotice">' +
+                "</div>" +
+                '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
+                '<div id="bodyContent">' +
+                "<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large " +
+                "(last visited June 22, 2009).</p>" +
+                "</div>" +
+                "</div>";
+            const infowindow = new google.maps.InfoWindow({
+                content: contentString,
+            });
+            const beachMarker = new google.maps.Marker({
+                position: { lat: 31.56395583978245, lng: -7.664375884360373},
+                map,
+                icon: "https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659616403/Group_1_1_vpmh6t.png",
+                label: {
+                    text: "Trash Problem",
+                    className : 'grayProblem',
+                    color: 'green'
+                }
+            });
+            beachMarker.addListener("click", () => {
+                infowindow.open({
+                    anchor: beachMarker,
+                    map,
+                    shouldFocus: false,
+                });
+            });
+            directionsRenderer.setMap(map);
+            directionsService.route({
+                origin: new google.maps.LatLng(31.56479673466521, -7.663478910112956),
+                destination: new google.maps.LatLng(lat , lng),
+                travelMode: google.maps.TravelMode.DRIVING,
+            }).then((response) => {
+                directionsRenderer.setDirections(response);
+            }).catch((e) => window.alert("Directions request failed due to " + status));
+        },
+        getData: function () {
+            const id = this.id
+            const token = document.querySelector("[name='csrf-token']").getAttribute("content")
+            if (token !== null){
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = token
+                axios.get('/get/map/'+id).then((res) => {
+                    console.log(res)
+                    this.lat = res.data.lat
+                    this.lng = res.data.lng
+                    console.log(res.data.lat , '********' , res.data.lng)
+                    this.image = res.data.image
+                    initMap(res.data.lat, res.data.lng)
+                })
+            }
+        }
     }
 }
 </script>

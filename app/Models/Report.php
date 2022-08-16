@@ -17,5 +17,6 @@ class Report extends Model
          'image',
         'user_id',
          'state',
+        'created_at',
     ];
 }

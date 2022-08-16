@@ -228,6 +228,7 @@ export default {
             this.$forceUpdate()
         },
         currentLocation: function (e){
+            this.arr.pop()
             if (this.arr.length === 1){
                 this.arr.pop()
             }
@@ -242,8 +243,8 @@ export default {
                 axios.defaults.headers.common['X-CSRF-TOKEN'] = token
                 axios.post('/store/report' , {
                     "catId" : this.currentId,
-                    "lat": this.currentPlace.position.lat,
-                    'lng': this.currentPlace.position.lng,
+                    "lat": this.arr[0].lat,
+                    'lng': this.arr[0].lng,
                     "cover": this.path
                 }).then((res) => {
                     if (res.status === 200) {

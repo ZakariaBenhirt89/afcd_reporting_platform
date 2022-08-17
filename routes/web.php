@@ -119,6 +119,7 @@ Route::middleware('auth:sanctum')->get('/get/cat' , [Controller::class, 'getIssu
 Route::middleware('auth:sanctum')->get('/get/users' , [Controller::class, 'getUsers']);
 Route::middleware('auth:sanctum')->get('/get/issues' , [Controller::class, 'getIssuesAll']);
 Route::middleware('auth:sanctum')->get('/get/map/{id}' , [Controller::class, 'getMap']);
+Route::middleware('auth:sanctum')->post('/store/update' , [Controller::class, 'storeUpdate']);
 
 Route::group(['middleware' => config('jetstream.middleware', ['web'])], function () {
     if (Jetstream::hasTermsAndPrivacyPolicyFeature()) {

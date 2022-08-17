@@ -1,1 +1,1 @@
-<div id="welcome" style="height: 20vh"></div>
+<div id="welcome" style="height: 100vh"></div>

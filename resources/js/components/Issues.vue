@@ -72,6 +72,7 @@
             </div>
         </Dialog>
     </TransitionRoot>
+    <updated v-if="showNot"/>
 </template>
 
 <script>
@@ -81,6 +82,9 @@ import Modal from "./Modal";
 import Preview from './Preview'
 import { Dialog, DialogOverlay, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { CheckIcon } from '@heroicons/vue/outline'
+import Pusher from 'pusher-js';
+import Updated from "./Updated";
+
 
 
 export default {
@@ -94,20 +98,24 @@ export default {
         TransitionChild,
         TransitionRoot,
         CheckIcon,
+        Updated,
     },
     setup() {
-        const people = ref([])
+        let people = ref([])
         const open = ref(false)
         //31.56395583978245, lng: -7.664375884360373
         const lat = ref(31.56395583978245)
         const lng = ref(-7.664375884360373)
         const id = ref(1)
+        let showNot = ref(false)
+
         return {
             people,
             open,
             lat,
             lng,
             id,
+            showNot,
         }
     },
     methods: {
@@ -155,12 +163,30 @@ export default {
         handleClose: function(){
             document.getElementById("map").innerHTML = ''
             this.open = false
+        },
+        subscribe: function(){
+            let pusher = new Pusher(
+                "31ab671a12f47aa12622",{
+                    cluster: 'eu'
+                });
+            let channel = pusher.subscribe('nice-channel');
+            channel.bind("update-report" ,  (data) => {
+                this.showNot = true
+                console.log("updated")
+                this.fetchData()
+                setTimeout( () => {
+                    //location.reload()
+                    this.showNot = false
+                } , 7500)
+
+            })
         }
     }
     ,
     mounted() {
        // this.fetchUsers()
         this.fetchData()
+        this.subscribe()
     }
 }
 </script>

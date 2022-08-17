@@ -139,3 +139,30 @@ if ( window.location.pathname === '/issues'  ){
 if (window.location.pathname === '/declarations' ){
     window.showMap = showMap
 }
+
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const currentDay = (new Date()).getDay()
+function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+        ['days', 'Reports frequency'],
+        [`${weekday[7-currentDay-3]}`,  1000      ],
+        [`${weekday[7-currentDay-2]}`,  1170      ],
+        [`${weekday[7-currentDay-1]}`,  660     ],
+        [`${weekday[7-currentDay]}`,  1030      ],
+        [`${weekday[7-currentDay+1]}`,  2000      ],
+        [`${weekday[7-currentDay+2]}`,  2014      ],
+        [`${weekday[7-currentDay+3]}`,  1754      ],
+    ]);
+
+    var options = {
+        title: 'Company Performance',
+        curveType: 'function',
+        legend: { position: 'bottom' }
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+    chart.draw(data, options);
+}

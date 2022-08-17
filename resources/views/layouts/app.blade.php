@@ -28,6 +28,7 @@
         <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="{{ asset('js/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script>
             tinymce.init({
                 selector: 'textarea#myeditorinstance', // Replace this CSS selector to match the placeholder element for TinyMCE

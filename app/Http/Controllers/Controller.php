@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Fortify\ResetUserPassword;
+use App\Events\UpdateReport;
 use App\Http\Resources\BlogResource;
 use App\Models\Blog;
 use App\Models\Issue;
@@ -195,6 +196,23 @@ class Controller extends BaseController
     public function getMap($id){
         $report = Report::find($id);
         return \response()->json($report);
+    }
+    public function storeUpdate(Request $request){
+        try {
+            Validator::make($request->input(), [
+                'id' => ['required'],
+                'description' => ['required'],
+                'state' => ['required']
+            ])->validate();
+        }catch (Exception $e){
+            return response()->json(["status" => 412 , "result" => "you missed something"]);
+        }
+        $id = $request->input('id');
+        Report::where("id" , $id)
+               ->update(['description-report' => $request->input('description') , "state" => $request->input('state')]);
+        event(new UpdateReport(Auth::user()));
+        return  \response()->json(['res' => 'updated']);
+
     }
     }
 

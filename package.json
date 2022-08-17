@@ -31,6 +31,8 @@
     "dependencies": {
         "@googlemaps/js-api-loader": "^1.14.3",
         "@tinymce/tinymce-vue": "^4.0.7",
+        "apexcharts": "^3.35.4",
+        "chart.js": "^3.9.1",
         "filepond": "^4.30.4",
         "filepond-plugin-file-validate-type": "^1.2.8",
         "filepond-plugin-image-preview": "^4.6.11",
@@ -39,7 +41,10 @@
         "mix-env-file": "^0.1.1",
         "tinymce": "^6.0.3",
         "vue": "^3.2.31",
+        "vue-apexcharts": "^1.6.2",
+        "vue-chartjs": "^4.1.1",
         "vue-filepond": "^7.0.3",
+        "vue3-charts": "^1.1.31",
         "vue3-google-map": "^0.13.2"
     }
 }

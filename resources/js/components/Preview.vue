@@ -43,12 +43,12 @@
                                 <div class="my-4">
                                     <label for="comment" class="block text-sm font-medium text-gray-700">Add description</label>
                                     <div class="mt-1">
-                                        <textarea v-bind="state" rows="4" name="comment" id="comment" class="shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+                                        <textarea v-model="desc" rows="4" name="comment" id="comment" class="shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
                                     </div>
                                 </div>
                                 <div class="my-4">
                                     <label for="location" class="block text-sm font-medium text-gray-700">update the state</label>
-                                    <select v-bind="state" id="location" name="location" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm rounded-md">
+                                    <select v-model="state" id="location" name="location" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm rounded-md">
                                         <option></option>
                                         <option value="pending">pending</option>
                                         <option value="review">review</option>
@@ -62,7 +62,7 @@
 
                         <!-- Policies -->
                         <section aria-labelledby="policies-heading" class="mt-5">
-                            <button type="button" class="w-full items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Save</button>
+                            <button @click="store" v-if="state !== '' && desc !== ''" type="button" class="w-full items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Save</button>
                         </section>
                     </div>
                 </div>
@@ -77,6 +77,7 @@ import { StarIcon } from '@heroicons/vue/solid'
 import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue'
 import { CurrencyDollarIcon, GlobeIcon } from '@heroicons/vue/outline'
 import { GoogleMap , Marker , MarkerCluster } from "vue3-google-map";
+import Updated from "./Updated";
 import axios from "axios";
 
 
@@ -149,6 +150,7 @@ export default {
         GoogleMap,
         Marker,
         MarkerCluster,
+        Updated,
     },
     setup() {
         const lat = ref('')
@@ -161,6 +163,10 @@ export default {
         const image = ref('')
         const desc = ref("")
         const state = ref("")
+        const description = ref('')
+        const st = ref('')
+        const showNot = ref(false)
+
         return {
             product,
             policies,
@@ -173,6 +179,9 @@ export default {
             image,
             desc,
             state,
+            description,
+            st,
+            showNot,
         }
     },
     mounted() {
@@ -240,6 +249,20 @@ export default {
                     console.log(res.data.lat , '********' , res.data.lng)
                     this.image = res.data.image
                     initMap(res.data.lat, res.data.lng)
+                })
+            }
+        },
+        store: function (e) {
+            e.preventDefault()
+            const token = document.querySelector("[name='csrf-token']").getAttribute("content")
+            if (token !== null){
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = token
+                axios.post('/store/update' , {
+                    'id': this.id,
+                    'description': this.desc,
+                    'state': this.state,
+                }).then((res) => {
+                    console.log(res)
                 })
             }
         }

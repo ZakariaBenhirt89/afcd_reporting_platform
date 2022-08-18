@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Fortify\ResetUserPassword;
+use App\Events\LogedUser;
+use App\Events\LogoutUser;
 use App\Events\UpdateReport;
 use App\Http\Resources\BlogResource;
+use App\Jobs\ProcessUsers;
 use App\Models\Blog;
 use App\Models\Issue;
 use App\Models\Report;
@@ -22,6 +25,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Jetstream\Jetstream;
 use PHPUnit\Exception;
+use Illuminate\Console\Scheduling\Schedule;
 
 class Controller extends BaseController
 {
@@ -46,16 +50,34 @@ class Controller extends BaseController
 
         return response()->json(['status' => 200 , 'data' => $success]);
     }
-    public function login(Request $request)
+    public function login(Request $request, Schedule $schedule)
     {
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             $user = Auth::user();
-            $success['token'] =  $user->createToken('MyApp')->accessToken;
+            $success['token'] =  $user->createToken('MyApp')->plainTextToken;
             $success['name'] =  $user->name;
+            event(new LogedUser(Auth::user()));
             return response()->json(['status' => 200 , 'data' => 'you did it' , 'accessToken' => $success]);
         }
         else{
             return response()->json(['status' => 400 , 'data' => "sorry you can't access"]);
+        }
+    }
+    public function logout(Request $request): \Illuminate\Http\JsonResponse
+    {
+        Log::info("lohha");
+        $validator = Validator::make($request->all(), [
+            'id' => 'required'
+        ]);
+        if ($validator->fails()){
+            return \response()->json(["result" => "not working"]);
+        }else{
+            Log::info($request->user()->id);
+            $id = $request->input("id");
+            event(new LogoutUser($request->user()));
+            $user = User::find(intval($id));
+            $request->user()->tokens()->delete();
+            return \response()->json(["result" => "done"]);
         }
     }
     public function registerByPhone(Request $request){
@@ -168,9 +190,8 @@ class Controller extends BaseController
     }
     public function getUsers(){
         $holder = array();
-        $users = User::all(["name" , 'email' , 'created_at'] );
+        $users = User::all();
         return \response()->json($users);
-
     }
     public function getIssuesAll(){
         $arr = array();
@@ -178,13 +199,14 @@ class Controller extends BaseController
         foreach ($issues as $issue){
             $id = $issue->id;
             $reporter = User::find($issue->user_id)->name;
+            $icon = Issue::find($issue->categoryId)->icon;
             $lat = $issue->lat;
             $lng = $issue->lng;
             $image = $issue->image;
             $catName = Issue::find($issue->categoryId)->title;
             $date = $issue->created_at ;
             $state = $issue->state;
-            $col = collect(['id' => $id ,'reporter' => $reporter , 'lat' => $lat , 'lng' => $lng , 'image' => $image , 'title' => $catName,'date' => $date , 'state' => $state]);
+            $col = collect(['id' => $id ,'reporter' => $reporter , 'lat' => $lat , 'lng' => $lng , 'image' => $image , 'title' => $catName,'date' => $date , 'state' => $state , 'icon' => $icon]);
             array_push($arr , $col) ;
         }
         if (count($arr) !== 0){
@@ -214,5 +236,49 @@ class Controller extends BaseController
         return  \response()->json(['res' => 'updated']);
 
     }
+    public function getApprovedIssues(): \Illuminate\Http\JsonResponse
+    {
+        $arr = array();
+        $issues = Report::where('state' , "proved" )->orWhere('state' , 'resolved')->get();
+        foreach ($issues as $issue){
+            $id = $issue->id;
+            $reporter = User::find($issue->user_id)->name;
+            $icon = Issue::find($issue->categoryId)->icon;
+            $lat = $issue->lat;
+            $lng = $issue->lng;
+            $image = $issue->image;
+            $catName = Issue::find($issue->categoryId)->title;
+            $date = $issue->created_at ;
+            $state = $issue->state;
+            $col = collect(['id' => $id ,'reporter' => $reporter , 'lat' => $lat , 'lng' => $lng , 'image' => $image , 'title' => $catName,'date' => $date , 'state' => $state , 'icon' => $icon]);
+            array_push($arr , $col) ;
+        }
+        if (count($arr) !== 0){
+            return \response()->json($arr);
+        }else{
+            return  \response()->json(['res' => 'no data']);
+        }
+    }
+    public function getResources(): \Illuminate\Http\JsonResponse
+    {
+        $res = Resource::all();
+        return \response()->json($res);
+    }
+    public function getUserData($id): \Illuminate\Http\JsonResponse
+    {
+        $user = User::find($id);
+        $reports = Report::where("user_id" , $id)->get();
+        return \response()->json(['user' => $user , "reports" => $reports]);
+    }
+    public function storeImage(Request $request){
+        if ($request->hasFile('image')){
+            $path = $request->file('image')->store('public/image');
+            $realPath = env("APP_URL").'/storage/'.str_replace("public/" ,'' ,  $path) ;
+            return \response()->json(['image' => $realPath]);
+        }else{
+            return \response()->json(["image" => "nothing"]);
+        }
+    }
+
     }
 

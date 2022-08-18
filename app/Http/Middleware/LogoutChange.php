@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Events\LogedUser;
+use App\Events\LogoutUser;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,9 +21,7 @@ class LogoutChange
     public function handle(Request $request, Closure $next)
     {
         Log::info(Auth::id() . " from the middleware");
-        $user = Auth::user();
-        $user->isOnline = false;
-        $user->save();
+        event(new LogoutUser(Auth::user()));
         return $next($request);
     }
 }

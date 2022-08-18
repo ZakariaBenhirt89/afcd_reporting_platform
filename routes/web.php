@@ -45,6 +45,13 @@ Route::get('/', function () {
 Route::get('/loginPhone', function () {
     return view('auth.phone');
 });
+Route::get('/map', function () {
+    return view('map');
+});
+Route::get('/resources', function () {
+    return view('resources');
+});
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
@@ -117,7 +124,9 @@ Route::middleware('auth:sanctum')->post('/store/report' , [Controller::class, 's
 Route::middleware('auth:sanctum')->post('/store/ressource' , [Controller::class, 'storeRessource']);
 Route::middleware('auth:sanctum')->get('/get/cat' , [Controller::class, 'getIssues']);
 Route::middleware('auth:sanctum')->get('/get/users' , [Controller::class, 'getUsers']);
-Route::middleware('auth:sanctum')->get('/get/issues' , [Controller::class, 'getIssuesAll']);
+Route::get('/get/issues' , [Controller::class, 'getIssuesAll']);
+Route::get('/get/issuesAproved' , [Controller::class, 'getApprovedIssues']);
+Route::get('/get/resources' , [Controller::class, 'getResources']);
 Route::middleware('auth:sanctum')->get('/get/map/{id}' , [Controller::class, 'getMap']);
 Route::middleware('auth:sanctum')->post('/store/update' , [Controller::class, 'storeUpdate']);
 

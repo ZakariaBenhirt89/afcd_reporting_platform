@@ -30,143 +30,10 @@
         <div class="relative overflow-hidden">
             <Popover as="header" class="relative">
                 <div class="bg-gray-900 pt-6">
-                    <nav class="relative max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6" aria-label="Global">
-                        <div class="flex items-center flex-1">
-                            <div class="flex items-center justify-between w-full md:w-auto">
-                                <a href="#">
-                                    <span class="sr-only">EcoCitizen</span>
-                                    <img class="h-10 w-auto sm:h-10" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659209233/imageedit_2_5615906368_1_s5vt2o.svg" alt="" />
-                                </a>
-                                <div class="-mr-2 flex items-center md:hidden">
-                                    <PopoverButton class="bg-gray-900 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-800 focus:outline-none focus:ring-2 focus-ring-inset focus:ring-white">
-                                        <span class="sr-only">Open main menu</span>
-                                        <MenuIcon class="h-6 w-6" aria-hidden="true" />
-                                    </PopoverButton>
-                                </div>
-                            </div>
-                            <div class="hidden space-x-8 md:flex md:ml-10">
-                                <a v-for="item in navigation" :key="item.name" :href="item.href" class="text-base font-medium text-white hover:text-gray-300">{{ item.name }}</a>
-                            </div>
-                        </div>
-                        <div class="hidden md:flex md:items-center md:space-x-6">
-                            <a :href="login" class="text-base font-medium text-white hover:text-gray-300" @click="login"> Log in </a>
-                            <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-green-700"> create account </a>
-                        </div>
-                    </nav>
                 </div>
 
-                <transition enter-active-class="duration-150 ease-out" enter-from-class="opacity-0 scale-95" enter-to-class="opacity-100 scale-100" leave-active-class="duration-100 ease-in" leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
-                    <PopoverPanel focus class="absolute top-0 inset-x-0 p-2 transition transform origin-top md:hidden">
-                        <div class="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
-                            <div class="px-5 pt-4 flex items-center justify-between">
-                                <div>
-                                    <img class="h-10 w-auto" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/q_100/v1659208099/imageedit_2_5615906368_bdnddl.png" alt="" />
-                                </div>
-                                <div class="-mr-2">
-                                    <PopoverButton class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-600">
-                                        <span class="sr-only">Close menu</span>
-                                        <XIcon class="h-6 w-6" aria-hidden="true" />
-                                    </PopoverButton>
-                                </div>
-                            </div>
-                            <div class="pt-5 pb-6">
-                                <div class="px-2 space-y-1">
-                                    <a v-for="item in navigation" :key="item.name" :href="item.href" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">{{ item.name }}</a>
-                                </div>
-                                <div class="mt-6 px-5">
-                                    <a href="#" class="block text-center w-full py-3 px-4 rounded-md shadow bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium hover:from-teal-600 hover:to-cyan-700">report anonymously</a>
-                                </div>
-                                <div class="mt-6 px-5">
-                                    <p class="text-center text-base font-medium text-gray-500">Existing customer? <a :href="login" class="text-gray-900 hover:underline">Login</a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </PopoverPanel>
-                </transition>
             </Popover>
             <main>
-                <div class="pt-10 bg-gray-900 sm:pt-16 lg:pt-8 lg:pb-14 lg:overflow-hidden">
-                    <div class="mx-auto max-w-7xl lg:px-8">
-                        <div class="lg:grid lg:grid-cols-2 lg:gap-8">
-                            <div class="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 sm:text-center lg:px-0 lg:text-left lg:flex lg:items-center">
-                                <div class="lg:py-24">
-
-                                    <h1 class="mt-4 text-4xl tracking-tight font-extrabold text-white sm:mt-5 sm:text-6xl lg:mt-6 xl:text-6xl">
-                                        <span class="block">A better way to</span>
-                                        <span class="pb-3 block bg-clip-text text-transparent bg-gradient-to-r from-teal-200 to-cyan-400 sm:pb-5">report your town problems</span>
-                                    </h1>
-                                    <p class="text-base text-gray-300 sm:text-xl lg:text-lg xl:text-xl">ecocitizen is a mobile app and web app that helps you take steps towards being an eco-friendly citizen. With this app, you can easily report environmental violations, such as littering or illegal dumping, and get them fixed. The app also lets you track your carbon footprint and see how your actions affect the environment. With ecocitizen, you can make a positive difference in the world!</p>
-                                    <div class="mt-10 sm:mt-12">
-                                        <form action="#" class="sm:max-w-xl sm:mx-auto lg:mx-0">
-                                            <div class="sm:flex">
-                                                <div class="min-w-0 flex-1">
-                                                    <label for="email" class="sr-only">Email address</label>
-                                                    <input id="email" type="email" placeholder="Enter your email" class="block w-full px-4 py-3 rounded-md border-0 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400 focus:ring-offset-gray-900" />
-                                                </div>
-                                                <div class="mt-3 sm:mt-0 sm:ml-3">
-                                                    <button type="submit" class="block w-full py-3 px-4 rounded-md shadow bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400 focus:ring-offset-gray-900">join out newsletter</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-12 -mb-16 sm:-mb-48 lg:m-0 lg:relative">
-                                <div class="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-0">
-                                    <!-- Illustration taken from Lucid Illustrations: https://lucid.pixsellz.io/ -->
-                                    <img class="w-full lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-auto lg:max-w-none" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1658319499/Sans_titre_2_ynb9v3.png" alt="" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Feature section with screenshot -->
-                <div class="relative bg-gray-50 pt-16 sm:pt-24 lg:pt-32">
-                    <div class="mx-auto max-w-md px-4 text-center sm:px-6 sm:max-w-3xl lg:px-8 lg:max-w-7xl">
-                        <div>
-                            <p class="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Apply anywhere.</p>
-                            <p class="mt-5 max-w-prose mx-auto text-xl text-gray-500">Designed to be handy and easy to use. friendly and cross platform.</p>
-                        </div>
-                        <div class="mt-12 mb-5 sm:mb-10 lg:mb-5 flex justify-center">
-                            <img class="rounded-lg shadow-xl ring-1 ring-black ring-opacity-5" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1658330698/Sans_titre_1080_750_px_1080_600_px_prqocj.png" alt="" />
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Feature section with grid -->
-
-                <!-- Testimonial section -->
-                <div class="pb-16 bg-gradient-to-r from-teal-500 to-cyan-600 lg:pb-0 lg:z-10 lg:relative">
-                    <div class="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-8">
-                        <div class="relative lg:-my-8">
-                            <div aria-hidden="true" class="absolute inset-x-0 top-0 h-1/10 bg-white lg:hidden" />
-                            <div class="mx-auto mt-5 max-w-md px-4 sm:max-w-3xl sm:px-6 lg:p-0 lg:h-full lg:mt-5">
-                                <div class="aspect-w-10 aspect-h-6 rounded-xl shadow-xl overflow-hidden sm:aspect-w-16 sm:aspect-h-7 lg:aspect-none lg:h-full">
-                                    <img class="object-cover lg:h-full lg:w-full" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1658331761/_104421247_4e68148d-3a67-425c-a885-c4915f06e830_pt9hwk.jpg" alt="" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-12 lg:m-0 lg:col-span-2 lg:pl-8">
-                            <div class="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:px-0 lg:py-20 lg:max-w-none">
-                                <blockquote>
-                                    <div>
-                                        <svg class="h-12 w-12 text-white opacity-25" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
-                                            <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
-                                        </svg>
-                                        <p class="mt-6 text-2xl font-medium text-white">There is an urgent need to fight climate change, halt ecosystem destruction, and reduce pollution for the benefit of all peoples everywhere. </p>
-                                    </div>
-                                    <footer class="mt-6">
-                                        <p class="text-base font-medium text-white">Mr Erik Solheim</p>
-                                        <p class="text-base font-medium text-cyan-100">UN Environment executive director</p>
-                                    </footer>
-                                </blockquote>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Blog section -->
                 <div class="relative bg-gray-50 py-16 sm:py-24 lg:py-32">
                     <div class="relative">
                         <div class="text-center mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
@@ -175,18 +42,18 @@
                             <p class="mt-5 mx-auto max-w-prose text-xl text-gray-500">some helpful resources to learn about the environment , Citizen Participation and Collaboration.</p>
                         </div>
                         <div class="mt-12 mx-auto max-w-md px-4 grid gap-8 sm:max-w-lg sm:px-6 lg:px-8 lg:grid-cols-3 lg:max-w-7xl">
-                            <div v-for="post in blogPosts" :key="post.id" class="flex flex-col rounded-lg shadow-lg overflow-hidden">
+                            <div v-for="post in data" :key="post.id" class="flex flex-col rounded-lg shadow-lg overflow-hidden">
                                 <div class="flex-shrink-0">
-                                    <img class="h-48 w-full object-cover" :src="post.imageUrl" alt="" />
+                                    <img class="h-48 w-full object-cover" :src="post.thumb" alt="" />
                                 </div>
                                 <div class="flex-1 bg-white p-6 flex flex-col justify-between">
                                     <div class="flex-1">
                                         <p class="text-sm font-medium text-cyan-600">
-                                            <a :href="post.category.href" class="hover:underline">
-                                                {{ post.category.name }}
+                                            <a :href="post.link" class="hover:underline">
+                                                {{ post.title }}
                                             </a>
                                         </p>
-                                        <a :href="post.href" class="block mt-2">
+                                        <a :href="post.link" class="block mt-2">
                                             <p class="text-xl font-semibold text-gray-900">
                                                 {{ post.title }}
                                             </p>
@@ -197,65 +64,25 @@
                                     </div>
                                     <div class="mt-6 flex items-center">
                                         <div class="flex-shrink-0">
-                                            <a :href="post.author.href">
-                                                <img class="h-10 w-10 rounded-full" :src="post.author.imageUrl" :alt="post.author.name" />
+                                            <a :href="post.title">
+                                                <img class="h-10 w-10 rounded-full" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659017596/eco_logo_b51rqq.png" :alt="author_name" />
                                             </a>
                                         </div>
                                         <div class="ml-3">
                                             <p class="text-sm font-medium text-gray-900">
-                                                <a :href="post.author.href" class="hover:underline">
-                                                    {{ post.author.name }}
+                                                <a :href="post.link" class="hover:underline">
+                                                   Ecocitizen Stuff
                                                 </a>
                                             </p>
                                             <div class="flex space-x-1 text-sm text-gray-500">
-                                                <time :datetime="post.datetime">
-                                                    {{ post.date }}
+                                                <time :datetime="post.created_at">
+                                                 {{getDate(post.created_at)}}
                                                 </time>
                                                 <span aria-hidden="true"> &middot; </span>
-                                                <span> {{ post.readingLength }} read </span>
+                                                <span> ....read </span>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-gradient-to-r from-teal-500 to-cyan-600">
-                    <div class="max-w-9xl mx-auto py-16  sm:py-24 ">
-                        <h1 class="text-center text-white text-sm font-bold uppercase tracking-wide">Powered by</h1>
-                        <div class="mt-8 grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-3">
-                            <div class="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-                                <img style="height: 6rem" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659209613/stylo_1_lic3al.png" alt="Tuple" />
-                            </div>
-                            <div class="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-                                <img style="height: 6rem" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659209709/stylo_1_1_pstwah.png" alt="Mirage" />
-                            </div>
-                            <div class="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-                                <img style="height: 6rem" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659017734/WhatsApp_Image_2022-07-26_at_12.13.54_AM-removebg-preview_qc1wyf.png" alt="StaticKit" />
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <!-- CTA Section -->
-                <div class="relative bg-gray-900">
-                    <div class="relative h-56 bg-indigo-600 sm:h-72 md:absolute md:left-0 md:h-full md:w-1/2">
-                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1525130413817-d45c1d127c42?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=60&sat=-100" alt="" />
-                        <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-r from-teal-500 to-cyan-600 mix-blend-multiply" />
-                    </div>
-                    <div class="relative mx-auto max-w-md px-4 py-12 sm:max-w-7xl sm:px-6 sm:py-20 md:py-28 lg:px-8 lg:py-32">
-                        <div class="md:ml-auto md:w-1/2 md:pl-10">
-                            <h2 class="text-base font-semibold uppercase tracking-wider text-gray-300">Award winning support</h2>
-                            <p class="mt-2 text-white text-3xl font-extrabold tracking-tight sm:text-4xl">We’re here to help</p>
-                            <p class="mt-3 text-lg text-gray-300">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et, egestas tempus tellus etiam sed. Quam a scelerisque amet ullamcorper eu enim et fermentum, augue. Aliquet amet volutpat quisque ut interdum tincidunt duis.</p>
-                            <div class="mt-8">
-                                <div class="inline-flex rounded-md shadow">
-                                    <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-gray-900 bg-white hover:bg-gray-50">
-                                        Visit the help center
-                                        <ExternalLinkIcon class="-mr-1 ml-3 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -287,12 +114,11 @@
             </footer>
         </div>
     </div>
-    <Copyright/>
 </template>
 
 <script>
 import Copyright from './Modal'
-import { defineComponent, h } from 'vue'
+import { defineComponent, h , ref } from 'vue'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import {
     CloudUploadIcon,
@@ -305,6 +131,7 @@ import {
     XIcon,
 } from '@heroicons/vue/outline'
 import { ChevronRightIcon, ExternalLinkIcon } from '@heroicons/vue/solid'
+import axios from "axios";
 
 const navigation = [
     { name: 'Map', href: '/map' },
@@ -511,16 +338,42 @@ export default {
         XIcon,
         Copyright,
     },
-    name: 'Landing',
+    name: 'Resource',
     setup() {
         const login = window.location.origin+'/login'
+        const data = ref([])
         return {
             login,
             navigation,
             features,
             blogPosts,
             footerNavigation,
+            data,
         }
     },
+    methods:{
+        getResources: function () {
+            const token = document.querySelector("[name='csrf-token']").getAttribute("content")
+            if (token !== null){
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = token
+                axios.get('/get/resources').then((res) => {
+                    console.log(res)
+                    this.data = res.data
+                })
+            }
+        },
+        getDate: function (date) {
+            const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const day = days[ (new Date(date)).getDay()]
+            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const Mounth = months[(new Date(date)).getMonth()]
+            const year = (new Date(date)).getFullYear()
+            return `${day}-${Mounth}-${year}`
+        }
+    },
+    mounted(){
+        console.log("mounted")
+        this.getResources()
+    }
 }
 </script>

@@ -1,5 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
+    "/js/chart.js": "/js/chart.js",
     "/css/app.css": "/css/app.css",
     "/js/tinymce/.npmignore": "/js/tinymce/.npmignore",
     "/js/tinymce/CHANGELOG.md": "/js/tinymce/CHANGELOG.md",

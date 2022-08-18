@@ -16,6 +16,7 @@ import Notification from "./components/Notification"
 import Declarations from './components/Reports'
 import Issues from "./components/Issues";
 import Preview from "./components/Preview";
+import Resource from './components/Resources'
 import Map from './components/Map'
 window.Alpine = Alpine;
 
@@ -54,16 +55,17 @@ createApp(Notification).mount('#noti2')
 createApp(Declarations).mount('#report')
 createApp(Issues).mount('#issues')
 createApp(Map).mount('#map')
+createApp(Resource).mount('#resources')
 
-let pusher = new Pusher(
-    "31ab671a12f47aa12622",{
-        cluster: 'eu'
-    });
-console.log(process.env.PUSHER_APP_ID)
-let channel = pusher.subscribe('nice-channel');
-channel.bind("loged-user" , function (data) {
-    console.log("the data")
-})
+// let pusher = new Pusher(
+//     "31ab671a12f47aa12622",{
+//         cluster: 'eu'
+//     });
+// console.log(process.env.PUSHER_APP_ID)
+// let channel = pusher.subscribe('nice-channel');
+// channel.bind("loged-user" , function (data) {
+//     console.log("the data")
+// })
 let map;
 let map1;
 
@@ -147,13 +149,13 @@ const currentDay = (new Date()).getDay()
 function drawChart() {
     var data = google.visualization.arrayToDataTable([
         ['days', 'Reports frequency'],
-        [`${weekday[7-currentDay-3]}`,  1000      ],
-        [`${weekday[7-currentDay-2]}`,  1170      ],
-        [`${weekday[7-currentDay-1]}`,  660     ],
-        [`${weekday[7-currentDay]}`,  1030      ],
-        [`${weekday[7-currentDay+1]}`,  2000      ],
-        [`${weekday[7-currentDay+2]}`,  2014      ],
-        [`${weekday[7-currentDay+3]}`,  1754      ],
+        [`${weekday[currentDay - 6 < 0 ? 7+ currentDay - 6 : currentDay - 6]}`,  1000      ],
+        [`${weekday[currentDay - 5 < 0 ? 7 + currentDay - 5  : currentDay - 5]}`,  1170      ],
+        [`${weekday[currentDay - 4 < 0 ? 7 + currentDay - 4  : currentDay - 4]}`,  660     ],
+        [`${weekday[currentDay - 3 < 0 ? 7 + currentDay - 3 : currentDay - 3]}`,  1030      ],
+        [`${weekday[currentDay - 2 < 0 ? 7  + currentDay - 2 : currentDay - 2]}`,  2000      ],
+        [`${weekday[currentDay - 1 < 0 ? 7 + currentDay - 1 : currentDay - 1]}`,  2014      ],
+        [`${weekday[currentDay]}`,  1754      ],
     ]);
 
     var options = {

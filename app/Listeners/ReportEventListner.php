@@ -2,12 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Events\LogedUser;
-use App\Models\User;
+use App\Events\UpdateReport;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class LogedUserListner
+class ReportEventListner
 {
     /**
      * Create the event listener.
@@ -22,14 +21,11 @@ class LogedUserListner
     /**
      * Handle the event.
      *
-     * @param  \App\Events\LogedUser  $event
+     * @param  \App\Events\UpdateReport  $event
      * @return void
      */
-    public function handle(LogedUser $event)
+    public function handle(UpdateReport $event)
     {
         //
-        $user = User::find($event->username);
-        $user->isOnline = true;
-        $user->save();
     }
 }

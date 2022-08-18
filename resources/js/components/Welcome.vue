@@ -13,7 +13,7 @@
 
         </div>
         <stat></stat>
-        <div id="curve_chart" style="width: 100vw; height: 500px"></div>
+        <div id="curve_chart" style="width: 100%; height: 500px"></div>
 
 
         <TransitionRoot as="template" :show="show1">

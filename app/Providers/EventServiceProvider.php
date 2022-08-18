@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 use App\Events\LogedUser;
+use App\Events\LogoutUser;
+use App\Events\UpdateReport;
 use App\Listeners\LogedUserListner;
+use App\Listeners\LogoutEventListner;
+use App\Listeners\ReportEventListner;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -30,6 +34,9 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        Event::listen(LogedUser::class , [LogedUserListner::class , 'handle']);
+        Event::listen(LogoutUser::class , [LogoutEventListner::class , 'handle']);
+        Event::listen(UpdateReport::class , [ReportEventListner::class , 'handle']);
 
     }
 

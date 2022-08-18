@@ -9,12 +9,11 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 
-
-class LogedUser implements ShouldBroadcast
+class LogoutUser implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
 
     public $username;
 
@@ -26,7 +25,7 @@ class LogedUser implements ShouldBroadcast
      */
     public function __construct($username)
     {
-        //
+
         $this->username = $username->id;
         $this->message = $username->name . ' has logged';
     }
@@ -41,6 +40,6 @@ class LogedUser implements ShouldBroadcast
         return ['nice-channel'];
     }
     public function broadcastAs() {
-        return 'loged-user';
+        return 'logout-user';
     }
 }

@@ -18,6 +18,7 @@ import Issues from "./components/Issues";
 import Preview from "./components/Preview";
 import Resource from './components/Resources'
 import Map from './components/Map'
+import MyIssues from "./components/MyIssues";
 window.Alpine = Alpine;
 
 Alpine.start();
@@ -55,7 +56,9 @@ createApp(Notification).mount('#noti2')
 createApp(Declarations).mount('#report')
 createApp(Issues).mount('#issues')
 createApp(Map).mount('#map')
+createApp(Map).mount('#map3')
 createApp(Resource).mount('#resources')
+createApp(MyIssues).mount('#myiss')
 
 // let pusher = new Pusher(
 //     "31ab671a12f47aa12622",{
@@ -133,10 +136,8 @@ function showMap(){
         }
     });
 }
-
-if ( window.location.pathname === '/issues'  ){
+if ( window.location.pathname === '/issues' || window.location.pathname === '/myissue'  ){
     window.initMap = initMap
-
 }
 if (window.location.pathname === '/declarations' ){
     window.showMap = showMap

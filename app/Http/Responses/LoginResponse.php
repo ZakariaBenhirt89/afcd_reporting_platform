@@ -3,6 +3,7 @@ namespace App\Http\Responses;
 
 use App\Events\LogedUser;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
 use Laravel\Fortify\Fortify;
 
@@ -18,8 +19,8 @@ class LoginResponse implements LoginResponseContract
     public function toResponse($request)
     {
         event(new LogedUser(Auth::user()));
-        $home = Auth::user()->enabled ? '/dashboard' : '/user' ;
-
+        $home = Auth::user()->isUser ? '/report' : '/dashboard' ;
+        Log::info($home.' the home');
         return redirect()->intended($home);
     }
 }

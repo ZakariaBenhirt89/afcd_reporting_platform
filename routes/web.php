@@ -71,6 +71,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/report', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/issues', function () {
     return view('issues');
 })->name('issues');
+Route::middleware(['auth:sanctum', 'verified'])->get('/myissue', function () {
+    return view('myiss');
+})->name('myiss');
 
 
 
@@ -124,6 +127,8 @@ Route::middleware('auth:sanctum')->post('/store/report' , [Controller::class, 's
 Route::middleware('auth:sanctum')->post('/store/ressource' , [Controller::class, 'storeRessource']);
 Route::middleware('auth:sanctum')->get('/get/cat' , [Controller::class, 'getIssues']);
 Route::middleware('auth:sanctum')->get('/get/users' , [Controller::class, 'getUsers']);
+Route::middleware('auth:sanctum')->get('/user/details' , [Controller::class, 'details']);
+Route::middleware('auth:sanctum')->get('/user/issue' , [Controller::class, 'getMyIssue']);
 Route::get('/get/issues' , [Controller::class, 'getIssuesAll']);
 Route::get('/get/issuesAproved' , [Controller::class, 'getApprovedIssues']);
 Route::get('/get/resources' , [Controller::class, 'getResources']);

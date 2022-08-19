@@ -6,10 +6,14 @@
                 <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate mx-2" id="hello">Hello Msg</h2>
                 <img id="ico" class="h-10 mx-3" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659609676/icons8-morning-80_lfsm4d.png" alt="hello pic"/>
             </div>
-            <div class="my-4 mx-4 flex md:mt-0 ml-4">
+            <div class="my-4 mx-4 flex md:mt-0 ml-4" v-if="isUser != 1">
                 <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"  @click="show1 = true; show2 = false">Add new issue</button>
                 <button type="button" class="mx-5 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" @click="show2 = true; show1 = false">Publish new resource</button>
             </div>
+            <div class="my-4 mx-4 flex md:mt-0 ml-4" v-if="isUser == 1">
+                <a href="/report" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-green-500  text-sm font-medium text-white  hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"  >تبليغ</a>
+            </div>
+
 
         </div>
         <stat></stat>
@@ -208,6 +212,7 @@ export default {
         const state = ref(false)
         const resTitle = ref("")
         const resLink = ref("")
+        const isUser = ref(1)
 
 
         return {
@@ -219,6 +224,7 @@ export default {
             state,
             resTitle,
             resLink,
+            isUser,
         }
     },
     data: function () {
@@ -278,6 +284,16 @@ export default {
         addResLink(e){
             e.preventDefault()
             this.resLink = e.target.value
+        },
+        getUserDetails(){
+            const token = document.querySelector("[name='csrf-token']").getAttribute("content")
+            if (token !== null){
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = token
+                axios.get('/user/details').then((res) => {
+                    console.log(res)
+                    this.isUser = res.data.isUser
+                })
+            }
         }
 
     },
@@ -316,6 +332,7 @@ export default {
                 },
             },
         });
+        this.getUserDetails()
     }
 
 }

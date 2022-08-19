@@ -41,6 +41,87 @@
                             <p class="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Helpful Resources</p>
                             <p class="mt-5 mx-auto max-w-prose text-xl text-gray-500">some helpful resources to learn about the environment , Citizen Participation and Collaboration.</p>
                         </div>
+                        <div v-if="show" class="mt-12 mx-auto max-w-md px-4 grid gap-8 sm:max-w-lg sm:px-6 lg:px-8 lg:grid-cols-3 lg:max-w-7xl">
+                            <div class="animate-pulse flex space-x-4">
+                                <div class="rounded-full bg-slate-700 h-10 w-10"></div>
+                                <div class="flex-1 space-y-6 py-1">
+                                    <div class="h-2 bg-slate-700 rounded"></div>
+                                    <div class="space-y-3">
+                                        <div class="grid grid-cols-3 gap-4">
+                                            <div class="h-2 bg-slate-700 rounded col-span-2"></div>
+                                            <div class="h-2 bg-slate-700 rounded col-span-1"></div>
+                                        </div>
+                                        <div class="h-2 bg-slate-700 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-pulse flex space-x-4">
+                                <div class="rounded-full bg-slate-700 h-10 w-10"></div>
+                                <div class="flex-1 space-y-6 py-1">
+                                    <div class="h-2 bg-slate-700 rounded"></div>
+                                    <div class="space-y-3">
+                                        <div class="grid grid-cols-3 gap-4">
+                                            <div class="h-2 bg-slate-700 rounded col-span-2"></div>
+                                            <div class="h-2 bg-slate-700 rounded col-span-1"></div>
+                                        </div>
+                                        <div class="h-2 bg-slate-700 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-pulse flex space-x-4">
+                                <div class="rounded-full bg-slate-700 h-10 w-10"></div>
+                                <div class="flex-1 space-y-6 py-1">
+                                    <div class="h-2 bg-slate-700 rounded"></div>
+                                    <div class="space-y-3">
+                                        <div class="grid grid-cols-3 gap-4">
+                                            <div class="h-2 bg-slate-700 rounded col-span-2"></div>
+                                            <div class="h-2 bg-slate-700 rounded col-span-1"></div>
+                                        </div>
+                                        <div class="h-2 bg-slate-700 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-pulse flex space-x-4">
+                                <div class="rounded-full bg-slate-700 h-10 w-10"></div>
+                                <div class="flex-1 space-y-6 py-1">
+                                    <div class="h-2 bg-slate-700 rounded"></div>
+                                    <div class="space-y-3">
+                                        <div class="grid grid-cols-3 gap-4">
+                                            <div class="h-2 bg-slate-700 rounded col-span-2"></div>
+                                            <div class="h-2 bg-slate-700 rounded col-span-1"></div>
+                                        </div>
+                                        <div class="h-2 bg-slate-700 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-pulse flex space-x-4">
+                                <div class="rounded-full bg-slate-700 h-10 w-10"></div>
+                                <div class="flex-1 space-y-6 py-1">
+                                    <div class="h-2 bg-slate-700 rounded"></div>
+                                    <div class="space-y-3">
+                                        <div class="grid grid-cols-3 gap-4">
+                                            <div class="h-2 bg-slate-700 rounded col-span-2"></div>
+                                            <div class="h-2 bg-slate-700 rounded col-span-1"></div>
+                                        </div>
+                                        <div class="h-2 bg-slate-700 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-pulse flex space-x-4">
+                                <div class="rounded-full bg-slate-700 h-10 w-10"></div>
+                                <div class="flex-1 space-y-6 py-1">
+                                    <div class="h-2 bg-slate-700 rounded"></div>
+                                    <div class="space-y-3">
+                                        <div class="grid grid-cols-3 gap-4">
+                                            <div class="h-2 bg-slate-700 rounded col-span-2"></div>
+                                            <div class="h-2 bg-slate-700 rounded col-span-1"></div>
+                                        </div>
+                                        <div class="h-2 bg-slate-700 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="mt-12 mx-auto max-w-md px-4 grid gap-8 sm:max-w-lg sm:px-6 lg:px-8 lg:grid-cols-3 lg:max-w-7xl">
                             <div v-for="post in data" :key="post.id" class="flex flex-col rounded-lg shadow-lg overflow-hidden">
                                 <div class="flex-shrink-0">
@@ -342,6 +423,7 @@ export default {
     setup() {
         const login = window.location.origin+'/login'
         const data = ref([])
+        const show = ref(true)
         return {
             login,
             navigation,
@@ -349,6 +431,7 @@ export default {
             blogPosts,
             footerNavigation,
             data,
+            show,
         }
     },
     methods:{
@@ -359,6 +442,7 @@ export default {
                 axios.get('/get/resources').then((res) => {
                     console.log(res)
                     this.data = res.data
+                    this.show = false
                 })
             }
         },

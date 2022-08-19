@@ -45,6 +45,8 @@ class Controller extends BaseController
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
+        $user->isUser = true;
+        $user->save();
         $success['token'] =  $user->createToken('MyApp')->accessToken;
         $success['name'] =  $user->name;
 
@@ -278,6 +280,13 @@ class Controller extends BaseController
         }else{
             return \response()->json(["image" => "nothing"]);
         }
+    }
+    public function details(){
+        return \response()->json(Auth::user());
+    }
+    public function getMyIssue(){
+        $issue = Report::where("user_id" , Auth::id())->get();
+        return \response()->json($issue);
     }
 
     }

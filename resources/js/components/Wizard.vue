@@ -125,7 +125,7 @@
         </div>
         <div  class="flex justify-between my-5">
             <button @click="step3 = false; step2= true ; steps[2].status = 'upcoming'; steps[1].status = 'current'" type="button" class="mx-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">previus</button>
-            <button @click="sendReport" type="button" class=" mx-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">send</button>
+            <button v-if="showBtn" @click="sendReport" type="button" class=" mx-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">send</button>
         </div>
 
     </div>
@@ -188,6 +188,7 @@ export default {
         const path = ref('')
         const done = ref(false)
         const error = ref(false)
+        const showBtn = ref(true)
         return {
             steps,
             step1,
@@ -203,7 +204,8 @@ export default {
             cond,
             path,
             done,
-            error
+            error,
+            showBtn,
         }
     },
     methods: {
@@ -238,6 +240,7 @@ export default {
         },
         sendReport(e){
             e.preventDefault()
+            this.showBtn = false
             const token = document.querySelector("[name='csrf-token']").getAttribute("content")
             if (token !== null) {
                 axios.defaults.headers.common['X-CSRF-TOKEN'] = token
@@ -249,6 +252,9 @@ export default {
                 }).then((res) => {
                     if (res.status === 200) {
                       this.done = true
+                       setTimeout(function () {
+                           window.location.href = window.origin + '/dashboard'
+                       } , 2500)
                     }
                 }).catch((err) => {
                     this.error = true

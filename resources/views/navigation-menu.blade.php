@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100" @if(\Illuminate\Support\Facades\Auth::user()->isUser) style="direction: rtl"  @endif>
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -14,11 +14,16 @@
                 <!-- Navigation Links -->
                 @if(\Illuminate\Support\Facades\Auth::user()->isUser)
 
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:mr-10 sm:flex">
                     <x-jet-nav-link href="{{ route('report') }}" :active="request()->routeIs('report')">
-                        {{ __('Report') }}
+                        {{ __('تبليغ') }}
                     </x-jet-nav-link>
                 </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:mr-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('myiss') }}" :active="request()->routeIs('myiss')">
+                            {{ __('مشاكل مبلغ عنها') }}
+                        </x-jet-nav-link>
+                    </div>
                 @else
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">

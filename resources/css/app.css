@@ -2,6 +2,9 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+body{
+    font-family: 'Cairo', sans-serif;
+}
 .grayProblem {
     font-size: 10pt;
     font-weight: bold;

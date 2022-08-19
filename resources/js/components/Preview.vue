@@ -36,10 +36,11 @@
                             <img style="height: 100%;width: 100%" :src="image" alt="preview"/>
                         </div>
 
-                        <div class="mt-8 border-t border-gray-200 pt-8">
-                            <h2 class="text-sm font-medium text-gray-900">Description and state </h2>
+                        <div class="mt-8 border-t border-gray-200 pt-8" >
+                            <div class="md:hidden" id="map3" style="width: 100%;height: 100%"></div>
+                            <h2 class="text-sm font-medium text-gray-900" v-if="admin == 'true'">Description and state </h2>
 
-                            <div class="mt-4 prose prose-sm text-gray-500">
+                            <div class="mt-4 prose prose-sm text-gray-500" v-if="admin == 'true'">
                                 <div class="my-4">
                                     <label for="comment" class="block text-sm font-medium text-gray-700">Add description</label>
                                     <div class="mt-1">
@@ -141,7 +142,7 @@ const policies = [
 
 export default {
     name:'Preview',
-    props: ['id'],
+    props: ['id','admin'],
     components: {
         RadioGroup,
         RadioGroupLabel,
@@ -166,6 +167,7 @@ export default {
         const description = ref('')
         const st = ref('')
         const showNot = ref(false)
+        const showAdmin = ref(false)
 
         return {
             product,
@@ -182,10 +184,12 @@ export default {
             description,
             st,
             showNot,
+            showAdmin
         }
     },
     mounted() {
         //lat: 31.56395583978245, lng: -7.664375884360373
+        console.log(this.admin)
         this.getData()
         console.log(this.lat , this.lng)
         console.log(window.initMap)

@@ -30,9 +30,9 @@
         <div class="relative overflow-hidden">
             <Popover as="header" class="relative">
                 <div class="bg-gray-900 pt-6">
-                    <nav class="relative max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6" aria-label="Global">
-                        <div class="flex items-center flex-1">
-                            <div class="flex items-center justify-between w-full md:w-auto">
+                    <nav style="flex-direction: row-reverse;" class="relative max-w-7xl mx-auto flex flex-row-reverse items-center justify-between px-4 sm:px-6" aria-label="Global">
+                        <div class="flex items-center flex-1" style="flex-direction: row-reverse;">
+                            <div class="flex items-center justify-between w-full md:w-auto" style="flex-direction: row-reverse;">
                                 <a href="#">
                                     <span class="sr-only">EcoCitizen</span>
                                     <img class="h-10 w-auto sm:h-10" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659209233/imageedit_2_5615906368_1_s5vt2o.svg" alt="" />
@@ -44,13 +44,14 @@
                                     </PopoverButton>
                                 </div>
                             </div>
-                            <div class="hidden space-x-8 md:flex md:ml-10">
-                                <a v-for="item in navigation" :key="item.name" :href="item.href" class="text-base font-medium text-white hover:text-gray-300">{{ item.name }}</a>
+                            <div class="hidden space-x-8 md:flex md:mr-10 " style="flex-direction: row-reverse;">
+                                <a v-for="item in navigation" :key="item.name" :href="item.href" class="text-base mx-5 font-medium text-white hover:text-gray-300">{{ item.name }}</a>
                             </div>
+
                         </div>
                         <div class="hidden md:flex md:items-center md:space-x-6">
-                            <a :href="login" class="text-base font-medium text-white hover:text-gray-300" @click="login"> Log in </a>
-                            <a href="/register" class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-green-700"> create account </a>
+                            <a :href="login" class="text-base font-medium text-white hover:text-gray-300" @click="login"> تسجيل </a>
+                            <a href="/register" class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-green-700"> انشاء حساب </a>
                         </div>
                     </nav>
                 </div>
@@ -74,10 +75,11 @@
                                     <a v-for="item in navigation" :key="item.name" :href="item.href" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">{{ item.name }}</a>
                                 </div>
                                 <div class="mt-6 px-5">
-                                    <a href="#" class="block text-center w-full py-3 px-4 rounded-md shadow bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium hover:from-teal-600 hover:to-cyan-700">report anonymously</a>
+                                    <a href="#" class="block text-center w-full py-3 px-4 rounded-md shadow bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium hover:from-teal-600 hover:to-cyan-700">انشاء حساب</a>
                                 </div>
+
                                 <div class="mt-6 px-5">
-                                    <p class="text-center text-base font-medium text-gray-500">Existing customer? <a :href="login" class="text-gray-900 hover:underline">Login</a></p>
+                                    <p class="text-center text-base font-medium text-gray-500">Existing customer? <a :href="login" class="text-gray-900 hover:underline">تسجيل</a></p>
                                 </div>
                             </div>
                         </div>
@@ -92,20 +94,14 @@
                                 <div class="lg:py-24">
 
                                     <h1 class="mt-4 text-4xl tracking-tight font-extrabold text-white sm:mt-5 sm:text-6xl lg:mt-6 xl:text-6xl">
-                                        <span class="block">A better way to</span>
-                                        <span class="pb-3 block bg-clip-text text-transparent bg-gradient-to-r from-teal-200 to-cyan-400 sm:pb-5">report your town problems</span>
+                                        <span class="block"  style="direction: rtl;text-align: justify;">أفضل طريقة ل</span>
+                                        <span class="pb-3 block bg-clip-text text-transparent bg-gradient-to-r from-teal-200 to-cyan-400 sm:pb-5"  style="direction: rtl;text-align: justify;">تبلغ عن مشاكل مدينتك</span>
                                     </h1>
-                                    <p class="text-base text-gray-300 sm:text-xl lg:text-lg xl:text-xl">ecocitizen is a mobile app and web app that helps you take steps towards being an eco-friendly citizen. With this app, you can easily report environmental violations, such as littering or illegal dumping, and get them fixed. The app also lets you track your carbon footprint and see how your actions affect the environment. With ecocitizen, you can make a positive difference in the world!</p>
+                                    <p class="text-base text-gray-300 sm:text-xl lg:text-lg xl:text-xl" style="direction: rtl;text-align: justify;">تطبيق جوال وتطبيق ويب يساعدك على اتخاذ خطوات نحو أن تكون مواطنًا صديقًا للبيئة. باستخدام هذا التطبيق ، يمكنك بسهولة الإبلاغ عن الانتهاكات البيئية ، مثل رمي القمامة أو الإغراق غير القانوني ، وحلها. يتيح لك التطبيق أيضًا تتبع بصمتك الكربونية ومعرفة كيف تؤثر أفعالك على البيئة. يمكنك إحداث فرق إيجابي في العالم</p>
                                     <div class="mt-10 sm:mt-12">
                                         <form action="#" class="sm:max-w-xl sm:mx-auto lg:mx-0">
                                             <div class="sm:flex">
-                                                <div class="min-w-0 flex-1">
-                                                    <label for="email" class="sr-only">Email address</label>
-                                                    <input id="email" type="email" placeholder="Enter your email" class="block w-full px-4 py-3 rounded-md border-0 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400 focus:ring-offset-gray-900" />
-                                                </div>
-                                                <div class="mt-3 sm:mt-0 sm:ml-3">
-                                                    <button type="submit" class="block w-full py-3 px-4 rounded-md shadow bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400 focus:ring-offset-gray-900">join out newsletter</button>
-                                                </div>
+
                                             </div>
                                         </form>
                                     </div>
@@ -125,8 +121,8 @@
                 <div class="relative bg-gray-50 pt-16 sm:pt-24 lg:pt-32">
                     <div class="mx-auto max-w-md px-4 text-center sm:px-6 sm:max-w-3xl lg:px-8 lg:max-w-7xl">
                         <div>
-                            <p class="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Apply anywhere.</p>
-                            <p class="mt-5 max-w-prose mx-auto text-xl text-gray-500">Designed to be handy and easy to use. friendly and cross platform.</p>
+                            <p class="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">تقدم في أي مكان..</p>
+                            <p class="mt-5 max-w-prose mx-auto text-xl text-gray-500">مصمم ليكون سهل الاستخدام وسهل الاستخدام..</p>
                         </div>
                         <div class="mt-12 mb-5 sm:mb-10 lg:mb-5 flex justify-center">
                             <img class="rounded-lg shadow-xl ring-1 ring-black ring-opacity-5" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1658330698/Sans_titre_1080_750_px_1080_600_px_prqocj.png" alt="" />
@@ -143,7 +139,7 @@
                             <div aria-hidden="true" class="absolute inset-x-0 top-0 h-1/10 bg-white lg:hidden" />
                             <div class="mx-auto mt-5 max-w-md px-4 sm:max-w-3xl sm:px-6 lg:p-0 lg:h-full lg:mt-5">
                                 <div class="aspect-w-10 aspect-h-6 rounded-xl shadow-xl overflow-hidden sm:aspect-w-16 sm:aspect-h-7 lg:aspect-none lg:h-full">
-                                    <img class="object-cover lg:h-full lg:w-full" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1658331761/_104421247_4e68148d-3a67-425c-a885-c4915f06e830_pt9hwk.jpg" alt="" />
+                                    <img class="object-cover lg:h-full lg:w-full" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1660997176/unnamed_d32vts.jpg" alt="" />
                                 </div>
                             </div>
                         </div>
@@ -154,11 +150,10 @@
                                         <svg class="h-12 w-12 text-white opacity-25" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
                                             <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
                                         </svg>
-                                        <p class="mt-6 text-2xl font-medium text-white">There is an urgent need to fight climate change, halt ecosystem destruction, and reduce pollution for the benefit of all peoples everywhere. </p>
+                                        <p class="mt-6 text-2xl font-medium text-white">وينص القانون الذي صدر رسميا في 20 من مارس 2014 على : “تعزيز الإجراءات الرامية لتخفيف والتكيف مع التغيرات المناخية ومحاربة التصحر، إلى جانب المحافظة على التنوع البيولوجي وتشجيع وحماية الأنظمة البيئية البحرية والساحلية من آثار كل الأنشطة التي من شأنها تلويث المياه والموارد الطبيعية.</p>
                                     </div>
                                     <footer class="mt-6">
-                                        <p class="text-base font-medium text-white">Mr Erik Solheim</p>
-                                        <p class="text-base font-medium text-cyan-100">UN Environment executive director</p>
+                                        <p class="text-base font-medium text-cyan-100">القانون المغربي</p>
                                     </footer>
                                 </blockquote>
                             </div>
@@ -170,8 +165,7 @@
                 <div class="relative bg-gray-50 py-16 sm:py-24 lg:py-32">
                     <div class="relative">
                         <div class="text-center mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
-                            <h2 class="text-base font-semibold tracking-wider text-cyan-600 uppercase">Learn</h2>
-                            <p class="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">How it works</p>
+                            <p class="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">كيفية اﻹستخدام</p>
                         </div>
                         <div class="mt-12 px-4 mx-auto max-w-md grid gap-8 sm:max-w-lg sm:px-6 lg:px-8 lg:grid-cols-3 lg:max-w-7xl">
                             <iframe style="width: 80vw;" height="500"  src="https://www.youtube.com/embed/kSJYu4njW8s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -180,7 +174,7 @@
                 </div>
                 <div class="bg-gradient-to-r from-teal-500 to-cyan-600">
                     <div class="max-w-9xl mx-auto py-16  sm:py-24 ">
-                        <h1 class="text-center text-white text-sm font-bold uppercase tracking-wide">Powered by</h1>
+                        <h1 class="text-center text-white text-sm font-bold uppercase tracking-wide">شركاء في إنشاء المنصة</h1>
                         <div class="mt-8 grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-3">
                             <div class="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
                                 <img style="height: 6rem" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659209613/stylo_1_lic3al.png" alt="Tuple" />
@@ -198,7 +192,7 @@
 
                 <!-- CTA Section -->
                 <div class="relative bg-gray-900">
-                    <div class="relative h-56 bg-indigo-600 sm:h-72 md:absolute md:left-0 md:h-full md:w-1/2">
+                    <div class="relative h-56 bg-green-600 sm:h-72 md:absolute md:left-0 md:h-full md:w-1/2">
                         <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1525130413817-d45c1d127c42?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=60&sat=-100" alt="" />
                         <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-r from-teal-500 to-cyan-600 mix-blend-multiply" />
                     </div>
@@ -225,7 +219,7 @@
                     <div class="xl:grid xl:grid-cols-3 xl:gap-8">
                         <div class="space-y-8 xl:col-span-1">
                             <img class="h-10" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659017596/eco_logo_b51rqq.png" alt="Company name" />
-                            <p class="text-gray-500 text-base">Making the world a better place through constructing elegant hierarchies.</p>
+                            <p class="text-gray-500 text-base">ابتكار منتجات ذكية تصنع الفارق</p>
                             <div class="flex space-x-6">
                                 <a v-for="item in footerNavigation.social" :key="item.name" :href="item.href" class="text-gray-400 hover:text-gray-500">
                                     <span class="sr-only">{{ item.name }}</span>
@@ -264,9 +258,8 @@ import {
 import { ChevronRightIcon, ExternalLinkIcon } from '@heroicons/vue/solid'
 
 const navigation = [
-    { name: 'Map', href: '/map' },
-    { name: 'Resources', href: '/resources' },
-    { name: 'About Us', href: '/about' },
+    { name: 'خريطة', href: '/map' },
+    { name: 'مصادر', href: '/resources' },
 ]
 const features = [
     {

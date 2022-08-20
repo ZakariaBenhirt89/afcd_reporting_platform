@@ -2,6 +2,7 @@ require('./bootstrap');
 
 import Alpine from 'alpinejs';
 import { createApp } from 'vue'
+import { createI18n } from 'vue-i18n'
 import {createRouter , createWebHistory} from 'vue-router'
 import Pusher from 'pusher-js';
 import Landing from "./components/Landing";
@@ -46,7 +47,18 @@ router.beforeResolve((to, from, next) => {
     }
     next()
 })
-createApp(Landingone).mount('#app')
+const intro = 'ecocitizen is a mobile app and web app that helps you take steps towards being an eco-friendly citizen. With this app, you can easily report environmental violations, such as littering or illegal dumping, and get them fixed. The app also lets you track your carbon footprint and see how your actions affect the environment. With ecocitizen, you can make a positive difference in the world!'
+const intro2 = 'ecocitizen هو تطبيق جوال وتطبيق ويب يساعدك على اتخاذ خطوات نحو أن تكون مواطنًا صديقًا للبيئة. باستخدام هذا التطبيق ، يمكنك بسهولة الإبلاغ عن الانتهاكات البيئية ، مثل رمي القمامة أو الإغراق غير القانوني ، وحلها. يتيح لك التطبيق أيضًا تتبع بصمتك الكربونية ومعرفة كيف تؤثر أفعالك على البيئة. مع ecocitizen ، يمكنك إحداث فرق إيجابي في العالم!'
+const i18n = createI18n({
+    // something vue-i18n options here ...
+    locale: 'en',
+    messages: {
+        en: { hello: intro },
+        ar: { hello: intro2 }
+    }
+})
+console.log("the i18n " , i18n)
+createApp(Landingone).use(i18n).mount('#app')
 createApp(Login).mount('#login')
 createApp(Loginphone).mount('#phone')
 createApp(Welcome).mount('#welcome')

@@ -3,8 +3,7 @@
     <div class="px-4 sm:px-6 lg:px-8 py-8">
         <div class="sm:flex sm:items-center">
             <div class="sm:flex-auto">
-                <h1 class="text-xl font-semibold text-gray-900">Issues</h1>
-                <p class="mt-2 text-sm text-gray-700">A list of all the reported issues</p>
+                <h1 class="text-xl font-semibold text-gray-900" style="direction: rtl">مشاكل مبلغ عنها</h1>
             </div>
             <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
             </div>

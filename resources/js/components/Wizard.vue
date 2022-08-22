@@ -105,17 +105,17 @@
         <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
             <div>
                 <div>
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">Issue Photo</h3>
-                    <p class="mt-1 max-w-2xl text-sm text-gray-500">please upload a photo for the current state of the issue.</p>
+                    <h3 class="text-lg leading-6 font-medium text-gray-900 mx-5" style="direction: rtl">صورة المشكل</h3>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-500" style="direction: rtl">قم بتحميل صورة تعبر عن مشكل</p>
                 </div>
 
                 <div class="mt-6 sm:mt-5 space-y-6 sm:space-y-5">
                     <div class="sm:grid sm:grid-cols-2 sm:gap-3 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-                        <label for="cover-photo" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"> Cover photo </label>
+                        <label for="cover-photo" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2 mx-4"> صورة </label>
                         <file-pond
                             name="current"
                             ref="pond"
-                            class-name="my-pond"
+                            class-name="my-pond mx-4"
                             label-idle="Drop files here..."
                             accepted-file-types="image/jpeg, image/png"
                         />
@@ -155,9 +155,9 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css
 
 
 const steps = [
-    { id: '01', name: 'Job details', href: '#', status: 'current' },
-    { id: '02', name: 'Application form', href: '#', status: 'upcoming' },
-    { id: '03', name: 'Preview', href: '#', status: 'upcoming' },
+    { id: '01', name: 'فئة المشكل', href: '#', status: 'current' },
+    { id: '02', name: 'تحديد الموقع', href: '#', status: 'upcoming' },
+    { id: '03', name: 'تحميل الصورة', href: '#', status: 'upcoming' },
 ]
 
 const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview , FilePondPluginImageValidateSize);

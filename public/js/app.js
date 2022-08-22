@@ -30439,17 +30439,17 @@ __webpack_require__.r(__webpack_exports__);
 
 var steps = [{
   id: '01',
-  name: 'Job details',
+  name: 'فئة المشكل',
   href: '#',
   status: 'current'
 }, {
   id: '02',
-  name: 'Application form',
+  name: 'تحديد الموقع',
   href: '#',
   status: 'upcoming'
 }, {
   id: '03',
-  name: 'Preview',
+  name: 'تحميل الصورة',
   href: '#',
   status: 'upcoming'
 }];
@@ -32707,7 +32707,20 @@ var _hoisted_1 = {
   "class": "px-4 sm:px-6 lg:px-8 py-8"
 };
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"sm:flex sm:items-center\"><div class=\"sm:flex-auto\"><h1 class=\"text-xl font-semibold text-gray-900\">Issues</h1><p class=\"mt-2 text-sm text-gray-700\">A list of all the reported issues</p></div><div class=\"mt-4 sm:mt-0 sm:ml-16 sm:flex-none\"></div></div>", 1);
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "sm:flex sm:items-center"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "sm:flex-auto"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
+  "class": "text-xl font-semibold text-gray-900",
+  style: {
+    "direction": "rtl"
+  }
+}, "مشاكل مبلغ عنها")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "mt-4 sm:mt-0 sm:ml-16 sm:flex-none"
+})], -1
+/* HOISTED */
+);
 
 var _hoisted_3 = {
   "class": "mt-8 flex flex-col"
@@ -34253,10 +34266,16 @@ var _hoisted_38 = {
 };
 
 var _hoisted_39 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", {
-  "class": "text-lg leading-6 font-medium text-gray-900"
-}, "Issue Photo"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
-  "class": "mt-1 max-w-2xl text-sm text-gray-500"
-}, "please upload a photo for the current state of the issue.")], -1
+  "class": "text-lg leading-6 font-medium text-gray-900 mx-5",
+  style: {
+    "direction": "rtl"
+  }
+}, "صورة المشكل"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+  "class": "mt-1 max-w-2xl text-sm text-gray-500",
+  style: {
+    "direction": "rtl"
+  }
+}, "قم بتحميل صورة تعبر عن مشكل")], -1
 /* HOISTED */
 );
 
@@ -34269,8 +34288,8 @@ var _hoisted_41 = {
 
 var _hoisted_42 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "cover-photo",
-  "class": "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
-}, " Cover photo ", -1
+  "class": "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2 mx-4"
+}, " صورة ", -1
 /* HOISTED */
 );
 
@@ -34426,7 +34445,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, "next")])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.step3 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_39, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [_hoisted_42, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_file_pond, {
     name: "current",
     ref: "pond",
-    "class-name": "my-pond",
+    "class-name": "my-pond mx-4",
     "label-idle": "Drop files here...",
     "accepted-file-types": "image/jpeg, image/png"
   }, null, 512

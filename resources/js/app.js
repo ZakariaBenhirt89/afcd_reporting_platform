@@ -20,6 +20,7 @@ import Preview from "./components/Preview";
 import Resource from './components/Resources'
 import Map from './components/Map'
 import MyIssues from "./components/MyIssues";
+
 window.Alpine = Alpine;
 
 Alpine.start();

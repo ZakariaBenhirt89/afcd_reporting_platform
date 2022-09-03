@@ -30,6 +30,7 @@
     },
     "dependencies": {
         "@googlemaps/js-api-loader": "^1.14.3",
+        "@lottiefiles/vue-lottie-player": "^1.0.9",
         "@tinymce/tinymce-vue": "^4.0.7",
         "apexcharts": "^3.35.4",
         "chart.js": "^3.9.1",

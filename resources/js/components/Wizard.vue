@@ -76,15 +76,33 @@
                 </div>
             </div>
         </div>
-        <div  style="margin: auto; width:50%" v-if="show">
-            <ul role="list" class="divide-y divide-gray-200 w-30">
-                <li :ref="currentId" v-for="item in items" :key="item.id" :id="item.id" :class="[currentId == item.id ? 'bg-green-600' : '', 'w-30 flex py-4 hover:bg-green-400 active:bg-green-700 ocus:outline-none focus:ring focus:ring-green-300']" @click="clickId">
-                    <img class="inline-block h-10 w-10 rounded-full mx-5" :src="item.icon" alt="" />
-                    <p> {{item.title}}</p>
-                </li>
-            </ul>
+        <div  class="sm:w-2/4 sm:mx-auto mt-2" v-if="show">
+            <RadioGroup v-model="selected">
+                <RadioGroupLabel class="sr-only">  </RadioGroupLabel>
+                <div class="space-y-4">
+                    <RadioGroupOption   as="template" v-for="item in items" :key="item.id" :value="item.id" v-slot="{ checked, active }" @click="clickId" :id="item.id">
+                        <div :class="[checked ? 'border-transparent' : 'border-gray-300', active ? 'border-green-500 ring-2 ring-green-500' : '', 'relative block bg-white border rounded-lg shadow-sm px-6 py-4 cursor-pointer sm:flex sm:justify-between focus:outline-none']" style="direction: rtl;">
+                            <div class="flex items-center">
+                                <div class="text-sm">
+                                    <RadioGroupLabel as="p" class="font-medium text-gray-900">
+                                        {{ item.title }}
+                                    </RadioGroupLabel>
+                                    <RadioGroupDescription as="div" class="text-gray-500">
+                                    </RadioGroupDescription>
+                                </div>
+                            </div>
+                            <RadioGroupDescription as="div" class="mt-2 flex text-sm sm:mt-0 sm:block sm:ml-4 sm:text-right">
+                                <div class="font-medium text-gray-900">
+                                    <img class="inline-block h-10 w-10 rounded-full mx-5" :src="item.icon" alt="" />
+                                </div>
+                            </RadioGroupDescription>
+                            <div :class="[active ? 'border' : 'border-2', checked ? 'border-green-500' : 'border-transparent', 'absolute -inset-px rounded-lg pointer-events-none']" aria-hidden="true" />
+                        </div>
+                    </RadioGroupOption>
+                </div>
+            </RadioGroup>
             <div class="flex justify-end my-10">
-                <button v-if="show" @click="step1 = false; step2= true ; steps[0].status = 'complete'; steps[1].status = 'current'" type="button" class="mx-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" >Next</button>
+                <button v-if="currentId != 0" @click="step1 = false; step2= true ; steps[0].status = 'complete'; steps[1].status = 'current'" type="button" class="mx-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" >التالي</button>
             </div>
         </div>
     </div>
@@ -96,8 +114,8 @@
 
         </GoogleMap>
        <div class="flex justify-between my-5">
-           <button @click="step1 = true; step2= false ; steps[0].status = 'complete'; steps[1].status = 'upcoming'" type="button" class="mx-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">previus</button>
-           <button @click="step2 = false; step3= true ; steps[1].status = 'complete'; steps[2].status = 'current'" type="button" class="mx-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">next</button>
+           <button @click="step1 = true; step2= false ; steps[0].status = 'complete'; steps[1].status = 'upcoming'" type="button" class="mx-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">السابق</button>
+           <button v-if="arr.length != 0" @click="step2 = false; step3= true ; steps[1].status = 'complete'; steps[2].status = 'current'" type="button" class="mx-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">التالي</button>
        </div>
 
     </div>
@@ -110,8 +128,7 @@
                 </div>
 
                 <div class="mt-6 sm:mt-5 space-y-6 sm:space-y-5">
-                    <div class="sm:grid sm:grid-cols-2 sm:gap-3 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-                        <label for="cover-photo" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2 mx-4"> صورة </label>
+                    <div class="sm:border-t sm:border-gray-200 sm:pt-5">
                         <file-pond
                             name="current"
                             ref="pond"
@@ -124,8 +141,124 @@
             </div>
         </div>
         <div  class="flex justify-between my-5">
-            <button @click="step3 = false; step2= true ; steps[2].status = 'upcoming'; steps[1].status = 'current'" type="button" class="mx-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">previus</button>
-            <button v-if="showBtn" @click="sendReport" type="button" class=" mx-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">send</button>
+            <button @click="step3 = false; step2= true ; steps[2].status = 'upcoming'; steps[1].status = 'current'" type="button" class="mx-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">سابق</button>
+            <button v-if="path != ''"  @click="step3 = false; step4= true; steps[2].status = 'complete'; steps[3].status = 'current'" type="button" class=" mx-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">التالي</button>
+        </div>
+
+    </div>
+    <div v-if="step4" class="flex flex-col h-fit">
+        <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
+            <div>
+                <div>
+                </div>
+                <div class="mt-6 sm:mt-5 space-y-6 sm:space-y-5">
+                    <!-- This example requires Tailwind CSS v2.0+ -->
+                    <RadioGroup v-if="auth" v-model="selected">
+                        <RadioGroupLabel class="sr-only"> </RadioGroupLabel>
+                        <div class="space-y-4">
+                            <RadioGroupOption @click="handleClick"  as="template" v-for="plan in plans" :key="plan.name" :value="plan.price" v-slot="{ checked, active }" :id="plan.price">
+                                <div :class="[checked ? 'border-transparent' : 'border-gray-300', active ? 'border-green-500 ring-2 ring-green-500' : '', 'relative block bg-white border rounded-lg shadow-sm px-6 py-4 cursor-pointer sm:flex sm:justify-between focus:outline-none']" style="direction: rtl;">
+                                    <div class="flex items-center">
+                                        <div class="text-sm">
+                                            <RadioGroupLabel as="p" class="font-medium text-gray-900">
+                                                {{ plan.name }}
+                                            </RadioGroupLabel>
+                                            <RadioGroupDescription as="div" class="text-gray-500">
+                                                <p class="sm:inline">{{ plan.disk }}</p>
+                                            </RadioGroupDescription>
+                                        </div>
+                                    </div>
+                                    <RadioGroupDescription as="div" class="mt-2 flex text-sm sm:mt-0 sm:block sm:ml-4 sm:text-right">
+                                        <div class="font-medium text-gray-900">{{ plan.price }}</div>
+                                    </RadioGroupDescription>
+                                    <div :class="[active ? 'border' : 'border-2', checked ? 'border-green-500' : 'border-transparent', 'absolute -inset-px rounded-lg pointer-events-none']" aria-hidden="true" />
+                                </div>
+                            </RadioGroupOption>
+                        </div>
+                    </RadioGroup>
+                    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+                        <div v-if="showAuth" class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                    <form  class="space-y-6" >
+                        <div>
+                            <label style="direction: rtl" for="email" class="block text-sm font-medium text-gray-700"> Email address </label>
+                            <div class="mt-1">
+                                <input @change="email = $event.target.value" style="direction: rtl" id="email" name="email" type="email" autocomplete="email" required="" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label style="direction: rtl" for="password" class="block text-sm font-medium text-gray-700"> Password </label>
+                            <div class="mt-1">
+                                <input @change="password = $event.target.value" style="direction: rtl" id="password" name="password" type="password" autocomplete="current-password" required="" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" />
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+
+                            </div>
+
+                            <div class="text-sm">
+                            </div>
+                        </div>
+
+                        <div>
+                            <button @click="testUser" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">تأكيد</button>
+                        </div>
+                    </form>
+                </div>
+                        <div v-if="register" class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                            <form  class="space-y-6" action="#" method="POST">
+                                <div>
+                                    <label style="direction: rtl" for="email" class="block text-sm font-medium text-gray-700"> بريد الالكتروني </label>
+                                    <div class="mt-1">
+                                        <input @change="email = $event.target.value" style="direction: rtl" id="email" name="email" type="email" autocomplete="email" required="" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label style="direction: rtl" for="email" class="block text-sm font-medium text-gray-700"> أسم </label>
+                                    <div class="mt-1">
+                                        <input @change="name = $event.target.value" style="direction: rtl" id="name" name="email" type="email" autocomplete="email" required="" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label style="direction: rtl" for="password" class="block text-sm font-medium text-gray-700"> كلمة المرور </label>
+                                    <div class="mt-1">
+                                        <input @change="password = $event.target.value" style="direction: rtl" id="password" name="password" type="password" autocomplete="current-password" required="" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label style="direction: rtl" for="password" class="block text-sm font-medium text-gray-700"> كلمة المرور </label>
+                                    <div class="mt-1">
+                                        <input @change="password = $event.target.value" style="direction: rtl" id="password" name="password" type="password" autocomplete="current-password" required="" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" />
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+
+                                    </div>
+
+                                    <div class="text-sm">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <button @click="createUser" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">تأكيد</button>
+                                </div>
+                            </form>
+                        </div>
+                       <div v-if="done1" class="flex justify-center">
+                           <lottie-player src="https://assets8.lottiefiles.com/datafiles/Wv6eeBslW1APprw/data.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"    autoplay></lottie-player>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div  class="flex justify-between my-5">
+            <button @click="step4 = false; step3= true ; steps[3].status = 'upcoming'; steps[2].status = 'current'" type="button" class="mx-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">سابق</button>
+            <button v-if="isUser" @click="sendReport" type="button" class=" mx-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">ارسال</button>
         </div>
 
     </div>
@@ -141,6 +274,7 @@ import Good from './Good'
 import Error from './Eroor'
 import { GoogleMap , Marker , MarkerCluster } from "vue3-google-map";
 import vueFilePond , {setOptions} from 'vue-filepond';
+import { RadioGroup, RadioGroupDescription, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue'
 
 // Import plugins
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.esm.js';
@@ -158,7 +292,13 @@ const steps = [
     { id: '01', name: 'فئة المشكل', href: '#', status: 'current' },
     { id: '02', name: 'تحديد الموقع', href: '#', status: 'upcoming' },
     { id: '03', name: 'تحميل الصورة', href: '#', status: 'upcoming' },
+    { id: '04', name: 'قبل الإرسال', href: '#', status: 'upcoming' },
 ]
+const plans = [
+    { name: 'لدي حساب', ram: '8GB', cpus: '4 CPUs', disk: 'في حالة توفر على حساب مفعل أو انشاء حساب للتبع تبليغ', price: '1' },
+    { name: 'انشاء حساب', ram: '8GB', cpus: '4 CPUs', disk: 'في حالة عدم توفر على حساب مفعل أو انشاء حساب للتبع تبليغ', price: '2' },
+]
+
 
 const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview , FilePondPluginImageValidateSize);
 
@@ -172,11 +312,16 @@ export default {
         MarkerCluster,
         FilePond,
         Good,
+        RadioGroup,
+        RadioGroupDescription,
+        RadioGroupLabel,
+        RadioGroupOption,
     },
     setup() {
         const step1 = ref(true)
         const step2 = ref(false)
         const step3 = ref(false)
+        const step4 = ref(false)
         const show = ref(false)
         const items = ref([])
         const currentId = ref(0)
@@ -189,11 +334,23 @@ export default {
         const done = ref(false)
         const error = ref(false)
         const showBtn = ref(true)
+        const selected = ref('')
+        const auth = ref(true)
+        const showAuth = ref(false)
+        const register = ref(false)
+        const email = ref('')
+        const name = ref('')
+        const password = ref('')
+        const isUser = ref(false)
+        const done1 = ref(false)
+        const userId = ref('')
+
         return {
             steps,
             step1,
             step2,
             step3,
+            step4,
             show,
             items,
             currentId,
@@ -206,6 +363,17 @@ export default {
             done,
             error,
             showBtn,
+            plans,
+            selected,
+            auth,
+            showAuth,
+            register,
+            email,
+            name,
+            password,
+            isUser,
+            done1,
+            userId,
         }
     },
     methods: {
@@ -260,6 +428,73 @@ export default {
                     this.error = true
                 })
             }
+        },
+        handleClick(e){
+            e.preventDefault()
+            console.log("clicked the option ", this.selected)
+            this.showAuth = (this.selected == '1');
+            this.register = (this.selected == '2');
+            this.auth = false
+        },
+        testUser(e){
+            e.preventDefault()
+            const token = document.querySelector("[name='csrf-token']").getAttribute("content")
+            if (token !== null){
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = token
+                axios.post('/check/user' , {
+                    "login" : this.email ,
+                    "password" : this.password
+
+                }).then((res) => {
+                    console.log(res)
+                    if(res.status === 200){
+                        this.showAuth = false
+                        this.isUser = true
+                        this.done1 = true
+                        this.userId = res['data'].id
+                    }
+                }).catch((err) => {
+                    this.isUser = false
+                    console.log(err)
+                })
+            }
+        },
+        createUser(e){
+            e.preventDefault()
+            const token = document.querySelector("[name='csrf-token']").getAttribute("content")
+            if (token !== null){
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = token
+                axios.post('/create/user' , {
+                     "email" : this.email ,
+                     "name": this.name,
+                     "password" : this.password,
+                     "password_confirmation": this.password,
+                }).then((res) => {
+                    console.log(res)
+                    if(res.status === 200){
+                        this.register = false
+                        this.isUser = true
+                        this.done1 = true
+                        this.userId = res['data'].id
+                    }
+                }).catch((err) => {
+                    this.isUser = false
+                    this.done1 = false
+                    console.log(err)
+                })
+            }
+        },
+        check1(){
+            return this.currentId != 0
+        },
+        check2(){
+          return this.arr.length != 0
+        },
+        check3(){
+          return this.path != ''
+        },
+        check4(){
+          this.isUser
         }
     },
     mounted() {

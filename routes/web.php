@@ -2,8 +2,12 @@
 
 use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Laravel\Jetstream\Http\Controllers\Livewire\ApiTokenController;
 use Laravel\Jetstream\Jetstream;
 use Laravel\Jetstream\Http\Controllers\CurrentTeamController;
@@ -40,8 +44,10 @@ use Laravel\Fortify\Http\Controllers\VerifyEmailController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('wizard');
 });
+Route::get('/get/cat' , [Controller::class, 'getIssues']);
+
 Route::get('/loginPhone', function () {
     return view('auth.phone');
 });
@@ -51,6 +57,33 @@ Route::get('/map', function () {
 Route::get('/resources', function () {
     return view('resources');
 });
+Route::post('/create/user', function (Request $request) {
+    $input = $request->input();
+    Validator::make($input, [
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        'password' => $this->passwordRules(),
+        'confirmation_password' => $this->passwordRules(),
+    ])->validate();
+    $user = User::create([
+        'name' => $input['name'],
+        'email' => $input['login'],
+        'password' => Hash::make($input['password']),
+        'isUser' => true,
+        'role' => 'user',
+    ]);
+    return response()->json(['id' => $user->id]);
+});
+Route::post('/check/user', function (Request $request) {
+    $input = $request->input();
+    Validator::make($input, [
+        'login' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        'password' => ['required'],
+    ])->validate();
+    $user = User::where('email' , $input['login'])->first();
+    return response()->json(['id' => $user->id]);
+});
+
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -90,7 +123,7 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/upload/photo', function 
 
    }
 })->name('photo.upload');
-Route::middleware(['auth:sanctum', 'verified'])->post('/upload', function (\Illuminate\Http\Request $request) {
+Route::post('/upload', function (\Illuminate\Http\Request $request) {
     if ($request->hasFile("current")){
         \Illuminate\Support\Facades\Log::info("the main one is there");
         $path = $request->file('current')->store('public/image/blog');
@@ -125,7 +158,6 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/upload/issue', function 
 Route::middleware('auth:sanctum')->post('/store/issue' , [Controller::class, 'storeIssue']);
 Route::middleware('auth:sanctum')->post('/store/report' , [Controller::class, 'storeReport']);
 Route::middleware('auth:sanctum')->post('/store/ressource' , [Controller::class, 'storeRessource']);
-Route::middleware('auth:sanctum')->get('/get/cat' , [Controller::class, 'getIssues']);
 Route::middleware('auth:sanctum')->get('/get/users' , [Controller::class, 'getUsers']);
 Route::middleware('auth:sanctum')->get('/user/details' , [Controller::class, 'details']);
 Route::middleware('auth:sanctum')->get('/user/issue' , [Controller::class, 'getMyIssue']);

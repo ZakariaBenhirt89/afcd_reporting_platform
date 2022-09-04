@@ -3,8 +3,8 @@
     <div class="px-4 sm:px-6 lg:px-8 py-8">
         <div class="sm:flex sm:items-center">
             <div class="sm:flex-auto">
-                <h1 class="text-xl font-semibold text-gray-900">Issues</h1>
-                <p class="mt-2 text-sm text-gray-700">A list of all the reported issues</p>
+                <h1 style="direction: rtl" class="text-xl font-semibold text-gray-900">تبليغات</h1>
+                <p style="direction: rtl" class="mt-2 text-sm text-gray-700">جميع التبليغات</p>
             </div>
             <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
             </div>
@@ -16,11 +16,11 @@
                         <table class="min-w-full divide-y divide-gray-300">
                             <thead class="bg-green-50">
                             <tr>
-                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Reporter name</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">date</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">state</th>
+                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">اسم</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">تاريخ</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">حالة</th>
                                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                                    <span class="sr-only">Preview</span>
+                                    <span class="sr-only">معاينة التبيلغ</span>
                                 </th>
                             </tr>
                             </thead>

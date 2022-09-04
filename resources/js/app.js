@@ -158,22 +158,22 @@ if (window.location.pathname === '/declarations' ){
 
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawChart);
-const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const weekday = ["الاحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
 const currentDay = (new Date()).getDay()
 function drawChart() {
     var data = google.visualization.arrayToDataTable([
-        ['days', 'Reports frequency'],
-        [`${weekday[currentDay - 6 < 0 ? 7+ currentDay - 6 : currentDay - 6]}`,  1000      ],
-        [`${weekday[currentDay - 5 < 0 ? 7 + currentDay - 5  : currentDay - 5]}`,  1170      ],
-        [`${weekday[currentDay - 4 < 0 ? 7 + currentDay - 4  : currentDay - 4]}`,  660     ],
-        [`${weekday[currentDay - 3 < 0 ? 7 + currentDay - 3 : currentDay - 3]}`,  1030      ],
-        [`${weekday[currentDay - 2 < 0 ? 7  + currentDay - 2 : currentDay - 2]}`,  2000      ],
-        [`${weekday[currentDay - 1 < 0 ? 7 + currentDay - 1 : currentDay - 1]}`,  2014      ],
-        [`${weekday[currentDay]}`,  1754      ],
+        ['days', 'تبليغات في الاسبوع'],
+        [`${weekday[currentDay - 6 < 0 ? 7+ currentDay - 6 : currentDay - 6]}`,  0      ],
+        [`${weekday[currentDay - 5 < 0 ? 7 + currentDay - 5  : currentDay - 5]}`,  0      ],
+        [`${weekday[currentDay - 4 < 0 ? 7 + currentDay - 4  : currentDay - 4]}`,  2     ],
+        [`${weekday[currentDay - 3 < 0 ? 7 + currentDay - 3 : currentDay - 3]}`,  1      ],
+        [`${weekday[currentDay - 2 < 0 ? 7  + currentDay - 2 : currentDay - 2]}`,  1      ],
+        [`${weekday[currentDay - 1 < 0 ? 7 + currentDay - 1 : currentDay - 1]}`,  3      ],
+        [`${weekday[currentDay]}`,  8      ],
     ]);
 
     var options = {
-        title: 'Company Performance',
+        title: 'عدد التبليغات',
         curveType: 'function',
         legend: { position: 'bottom' }
     };

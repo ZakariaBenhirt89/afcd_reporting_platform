@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Fortify\PasswordValidationRules;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Events\LogedUser;
 use App\Events\LogoutUser;
@@ -26,10 +27,11 @@ use Illuminate\Support\Facades\Validator;
 use Laravel\Jetstream\Jetstream;
 use PHPUnit\Exception;
 use Illuminate\Console\Scheduling\Schedule;
+use Laravel\Fortify\Contracts\CreatesNewUsers;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests,PasswordValidationRules;
     public function register(Request $request){
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -158,7 +160,8 @@ class Controller extends BaseController
                 'catId' => ['required'],
                 'lng' => ['required'],
                 'lat' => ['required'],
-                'cover' => ['required']
+                'cover' => ['required'],
+                'userId' => ['required']
             ])->validate();
         }catch (Exception $e){
             return response()->json(["status" => 412 , "result" => "you missed something"]);
@@ -168,7 +171,7 @@ class Controller extends BaseController
         $report->lng = $request->input("lng");
         $report->lat = $request->input("lat");
         $report->image = $request->input("cover");
-        $report->user_id = Auth::user()->id;
+        $report->user_id = $request->input("userId");
         $report->state = "pending";
         $report->save();
         return  response()->json(["status" => 200 , "res" => "done"]);
@@ -287,6 +290,36 @@ class Controller extends BaseController
     public function getMyIssue(){
         $issue = Report::where("user_id" , Auth::id())->get();
         return \response()->json($issue);
+    }
+    public function check(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $input = $request->input();
+        Validator::make($input, [
+        'email' => ['required'],
+        'password' => ['required'],
+        ])->validate();
+        try {
+            $user = User::where('email' , $input['email'])->first();
+        }catch (\Exception $exception){
+            Log::info("we have a problem here");
+        }
+        return response()->json(['id' => $user->id]);
+    }
+    public function create(Request $request){
+    $input = $request->input();
+    Validator::make($input, [
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        'password' => $this->passwordRules(),
+    ])->validate();
+    $user = User::create([
+        'name' => $input['name'],
+        'email' => $input['email'],
+        'password' => Hash::make($input['password']),
+        'isUser' => true,
+        'role' => 'user',
+    ]);
+    return response()->json(['id' => $user->id]);
     }
 
     }

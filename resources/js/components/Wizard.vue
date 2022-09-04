@@ -180,14 +180,14 @@
                         <div v-if="showAuth" class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
                     <form  class="space-y-6" >
                         <div>
-                            <label style="direction: rtl" for="email" class="block text-sm font-medium text-gray-700"> Email address </label>
+                            <label style="direction: rtl" for="email" class="block text-sm font-medium text-gray-700"> بريد الالكتروني </label>
                             <div class="mt-1">
                                 <input @change="email = $event.target.value" style="direction: rtl" id="email" name="email" type="email" autocomplete="email" required="" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" />
                             </div>
                         </div>
 
                         <div>
-                            <label style="direction: rtl" for="password" class="block text-sm font-medium text-gray-700"> Password </label>
+                            <label style="direction: rtl" for="password" class="block text-sm font-medium text-gray-700"> كلمة المرور </label>
                             <div class="mt-1">
                                 <input @change="password = $event.target.value" style="direction: rtl" id="password" name="password" type="password" autocomplete="current-password" required="" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" />
                             </div>
@@ -416,12 +416,13 @@ export default {
                     "catId" : this.currentId,
                     "lat": this.arr[0].lat,
                     'lng': this.arr[0].lng,
-                    "cover": this.path
+                    "cover": this.path,
+                    "userId": this.userId
                 }).then((res) => {
                     if (res.status === 200) {
                       this.done = true
                        setTimeout(function () {
-                           window.location.href = window.origin + '/dashboard'
+                           window.location.href = window.origin + '/login'
                        } , 2500)
                     }
                 }).catch((err) => {
@@ -442,7 +443,7 @@ export default {
             if (token !== null){
                 axios.defaults.headers.common['X-CSRF-TOKEN'] = token
                 axios.post('/check/user' , {
-                    "login" : this.email ,
+                    "email" : this.email ,
                     "password" : this.password
 
                 }).then((res) => {

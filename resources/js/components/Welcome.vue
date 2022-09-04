@@ -7,11 +7,7 @@
                 <img id="ico" class="h-10 mx-3" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659609676/icons8-morning-80_lfsm4d.png" alt="hello pic"/>
             </div>
             <div class="my-4 mx-4 flex md:mt-0 ml-4" v-if="isUser != 1">
-                <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"  @click="show1 = true; show2 = false">Add new issue</button>
-                <button type="button" class="mx-5 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" @click="show2 = true; show1 = false">Publish new resource</button>
-            </div>
-            <div class="my-4 mx-4 flex md:mt-0 ml-4" v-if="isUser == 1">
-                <a href="/report" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-green-500  text-sm font-medium text-white  hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"  >تبليغ</a>
+                <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"  @click="show1 = true; show2 = false">اضافة مشكل جديد</button>
             </div>
 
 
@@ -300,10 +296,10 @@ export default {
     mounted() {
         let date = new Date()
         if(date.getHours() < 12){
-            document.getElementById("hello").innerText = "Good Morning"
+            document.getElementById("hello").innerText = "صباح الخير"
             document.getElementById("ico").src = "https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659609676/icons8-morning-80_lfsm4d.png"
         }else{
-            document.getElementById("hello").innerText = "Good Evening"
+            document.getElementById("hello").innerText = "مساء الخير"
             document.getElementById("ico").src = "https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659609668/icons8-evening-80_p0ywlv.png"
         }
         const token = document.querySelector('[name="csrf-token"]').getAttribute("content")

@@ -1,49 +1,46 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100" @if(\Illuminate\Support\Facades\Auth::user()->isUser) style="direction: rtl"  @endif>
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="direction: rtl">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="#">
                        <img class="w-auto h-12" src="https://res.cloudinary.com/dy6vgsgr8/image/upload/v1659017596/eco_logo_b51rqq.png" alt="app logo">
                     </a>
                 </div>
 
 
                 <!-- Navigation Links -->
-                @if(\Illuminate\Support\Facades\Auth::user()->isUser)
+                @if(  \Illuminate\Support\Facades\Auth::user()->isUser)
 
-                <div class="hidden space-x-8 sm:-my-px sm:mr-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('report') }}" :active="request()->routeIs('report')">
-                        {{ __('تبليغ') }}
-                    </x-jet-nav-link>
-                </div>
-                    <div class="hidden space-x-8 sm:-my-px sm:mr-10 sm:flex">
+                    <div class=" mr-5 mt-5 space-x-8 sm:-my-px sm:ml-10 sm:mr-5 sm:flex">
                         <x-jet-nav-link href="{{ route('myiss') }}" :active="request()->routeIs('myiss')">
-                            {{ __('مشاكل مبلغ عنها') }}
+                            <h1>
+                                {{ __('مشاكل مبلغ عنها') }}
+                            </h1>
                         </x-jet-nav-link>
                     </div>
                 @else
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:mr-5 sm:flex">
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Le tableau de bord') }}
+                        {{ __('رئيسية') }}
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('declarations') }}" :active="request()->routeIs('declarations')">
-                        {{ __('Map') }}
+                        {{ __('خريطة') }}
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
-                        {{ __('Les utilisateurs') }}
+                        {{ __('مستخدمين') }}
                     </x-jet-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('issues') }}" :active="request()->routeIs('issues')">
-                        {{ __('All Reports') }}
+                        {{ __('تبليغات') }}
                     </x-jet-nav-link>
                 </div>
                     @endif
@@ -124,18 +121,13 @@
                         <x-slot name="content">
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Account') }}
+                                {{ __('تعديل الملف الشخصي') }}
                             </div>
 
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('Profile') }}
+                                {{ __('ملف الشخصي') }}
                             </x-jet-dropdown-link>
 
-                            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                                <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
-                                    {{ __('API Tokens') }}
-                                </x-jet-dropdown-link>
-                            @endif
 
                             <div class="border-t border-gray-100"></div>
 
@@ -145,7 +137,7 @@
 
                                 <x-jet-dropdown-link href="{{ route('logout') }}"
                                          @click.prevent="$root.submit();">
-                                    {{ __('Log Out') }}
+                                    {{ __('خروج') }}
                                 </x-jet-dropdown-link>
                             </form>
                         </x-slot>
@@ -189,14 +181,10 @@
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
                 <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                    {{ __('Profile') }}
+                    {{ __('ملف الشخصي') }}
                 </x-jet-responsive-nav-link>
 
-                @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                    <x-jet-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
-                        {{ __('API Tokens') }}
-                    </x-jet-responsive-nav-link>
-                @endif
+
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}" x-data>
@@ -204,7 +192,7 @@
 
                     <x-jet-responsive-nav-link href="{{ route('logout') }}"
                                    @click.prevent="$root.submit();">
-                        {{ __('Log Out') }}
+                        {{ __('خروج') }}
                     </x-jet-responsive-nav-link>
                 </form>
 

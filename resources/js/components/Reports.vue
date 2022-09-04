@@ -2,9 +2,9 @@
 <template>
     <div class="px-4 sm:px-6 lg:px-8">
         <div class="sm:flex sm:items-center">
-            <div class="sm:flex-auto">
-                <h1 class="text-xl font-semibold text-gray-900">Users</h1>
-                <p class="mt-2 text-sm text-gray-700">A list of all the users in your account including their name, title, email and role.</p>
+            <div style="direction: rtl" class="sm:flex-auto">
+                <h1  class="text-xl font-semibold text-gray-900">مستخدمين</h1>
+                <p class="mt-2 text-sm text-gray-700">لائحة لجميع المستخدين للمنصة</p>
             </div>
             <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
             </div>
@@ -16,12 +16,10 @@
                         <table class="min-w-full divide-y divide-gray-300">
                             <thead class="bg-green-50">
                             <tr>
-                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Name</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Date</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Email</th>
-                                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                                    <span class="sr-only">Edit</span>
-                                </th>
+                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">اسم</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">تاريخ</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">بريد الالكتروني</th>
+
                             </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 bg-white">
@@ -29,11 +27,6 @@
                                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ person.name }}</td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{person.created_at}}</td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ person.email }}</td>
-                                <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                    <a href="#" :class="isConnected(person.isOnline)"
-                                    >{{person.isOnline === 0 ? 'deconnected' : 'connected'}}<span class="sr-only"></span></a
-                                    >
-                                </td>
                             </tr>
                             </tbody>
                         </table>

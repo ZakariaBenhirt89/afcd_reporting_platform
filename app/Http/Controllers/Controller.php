@@ -51,6 +51,7 @@ class Controller extends BaseController
         $user->save();
         $success['token'] =  $user->createToken('MyApp')->accessToken;
         $success['name'] =  $user->name;
+        $success['id'] =  $user->id;
 
         return response()->json(['status' => 200 , 'data' => $success]);
     }
@@ -60,6 +61,7 @@ class Controller extends BaseController
             $user = Auth::user();
             $success['token'] =  $user->createToken('MyApp')->plainTextToken;
             $success['name'] =  $user->name;
+            $success['id'] =  $user->id;
             event(new LogedUser(Auth::user()));
             return response()->json(['status' => 200 , 'data' => 'you did it' , 'accessToken' => $success]);
         }
@@ -155,6 +157,7 @@ class Controller extends BaseController
      */
     public function storeReport(Request $request): \Illuminate\Http\JsonResponse
     {
+        Log::info("tata");
         try {
             Validator::make($request->input(), [
                 'catId' => ['required'],
@@ -174,6 +177,7 @@ class Controller extends BaseController
         $report->user_id = $request->input("userId");
         $report->state = "pending";
         $report->save();
+        Log::info("the stored from api ".$report->id);
         return  response()->json(["status" => 200 , "res" => "done"]);
     }
     public function storeRessource(Request $request){

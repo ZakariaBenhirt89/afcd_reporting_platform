@@ -22,15 +22,25 @@ use PHPUnit\Exception;
 Route::middleware('auth:passport')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('/store', function (Request $request) {
+    if($request->hasFile('photo')){
+        $path = $request->file('photo')->store('public/image/blog');
+        $realPath = env("APP_URL").'/storage/'.str_replace("public/" ,'' ,  $path) ;
+        return response()->json(["path" => $realPath , "result" => true]);
+    }else{
+        return response()->json(['data' => 500]);
+    }
+}
+);
 Route::post('/v1/register', [Controller::class, 'register']);
 Route::post('/v1/register/phone', [Controller::class, 'registerByPhone']);
 Route::post('/v1/login', [Controller::class, 'login']);
 Route::middleware('auth:sanctum')->post('/v1/logout', [Controller::class, 'logout']);
 Route::post('/v1/login/phone', [Controller::class, 'loginByPhone']);
 Route::middleware('auth:sanctum')->get('/v1/blogs' , [Controller::class, 'index']);
-Route::middleware('auth:sanctum')->get('/v1/issue' , [Controller::class, 'getIssuesAll']);
-Route::middleware('auth:sanctum')->get('/v1/user/{id}' , [Controller::class, 'getUserData']);
-Route::middleware('auth:sanctum')->get('/v1/cats' , [Controller::class, 'getIssues']);
+Route::get('/v1/issue' , [Controller::class, 'getIssuesAll']);
+Route::get('/v1/user/{id}' , [Controller::class, 'getUserData']);
+Route::get('/v1/cats' , [Controller::class, 'getIssues']);
 Route::middleware('auth:sanctum')->post('/store/image' , [Controller::class, 'storeImage']);
 Route::middleware('auth:sanctum')->post('/store/report' , [Controller::class, 'storeReport']);
 

@@ -130,7 +130,6 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/upload/issue', function 
     }else{
         \Illuminate\Support\Facades\Log::info("the problem");
     }
-
 })->name('issue.upload');
 Route::middleware('auth:sanctum')->post('/store/issue' , [Controller::class, 'storeIssue']);
 Route::middleware('auth:sanctum')->post('/store/ressource' , [Controller::class, 'storeRessource']);

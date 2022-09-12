@@ -1,5 +1,5 @@
 <template>
-    <GoogleMap  api-key="AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg" style="width: 100%; height: 100%" :center="center" :zoom="15">
+    <GoogleMap  api-key="AIzaSyD8FFufEgDxvJzCRW1sdp-prGFbPI1_tN8" style="width: 100%; height: 100%" :center="center" :zoom="15">
         <MarkerCluster>
             <CustomMarker v-for="data in arr" :options="{ position: getObject(data), anchorPoint: 'BOTTOM_CENTER' }" :key="data['id']">
                 <div style="text-align: center">

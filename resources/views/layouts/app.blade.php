@@ -223,7 +223,7 @@
         <!-- This example requires Tailwind CSS v2.0+ -->
         <!-- Global notification live region, render this permanently at the end of the document -->
         <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCr3W16eqgOTon71Pet28ZhVKsyy42X9hU&callback=initMap&v=weekly"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8FFufEgDxvJzCRW1sdp-prGFbPI1_tN8&callback=initMap&v=weekly"
             defer
         ></script>
         <script src="{{ mix('js/app.js') }}" defer></script>

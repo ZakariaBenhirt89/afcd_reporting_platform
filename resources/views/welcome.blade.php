@@ -20,7 +20,7 @@
 
     </head>
     <body class="antialiased">
-       <div id="app"></div>
+       <div id="app" ></div>
        <script src="{{ mix('js/app.js') }}" defer></script>
     </body>
 </html>

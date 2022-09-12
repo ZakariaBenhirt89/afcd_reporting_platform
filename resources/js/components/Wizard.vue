@@ -107,7 +107,7 @@
         </div>
     </div>
     <div v-if="step2" class="h-fit">
-        <GoogleMap @click="currentLocation" api-key="AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg" style="width: 100%; height: 60vh" :center="center" :zoom="15">
+        <GoogleMap @click="currentLocation" api-key="AIzaSyD8FFufEgDxvJzCRW1sdp-prGFbPI1_tN8" style="width: 100%; height: 60vh" :center="center" :zoom="15">
            <MarkerCluster>
                <Marker v-for="a in arr" :options="{ position: a, label: 'L', title: 'LADY LIBERTY'  }" />
            </MarkerCluster>

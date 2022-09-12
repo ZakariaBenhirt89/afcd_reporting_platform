@@ -15,7 +15,7 @@
                 @if(  \Illuminate\Support\Facades\Auth::user()->isUser)
 
                     <div class=" mr-5 mt-5 space-x-8 sm:-my-px sm:ml-10 sm:mr-5 sm:flex">
-                        <x-jet-nav-link href="{{ route('myiss') }}" :active="request()->routeIs('myiss')">
+                        <x-jet-nav-link href="{{ route('myiss') }}" :active="request()->routeIs('myiss')" style="font-size: larger; font-weight: bolder">
                             <h1>
                                 {{ __('مشاكل مبلغ عنها') }}
                             </h1>
@@ -23,23 +23,23 @@
                     </div>
                 @else
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:mr-5 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')" style="font-size: larger; font-weight: bolder">
                         {{ __('رئيسية') }}
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('declarations') }}" :active="request()->routeIs('declarations')">
+                    <x-jet-nav-link href="{{ route('declarations') }}" :active="request()->routeIs('declarations')" style="font-size: larger; font-weight: bolder">
                         {{ __('خريطة') }}
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
+                    <x-jet-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')" style="font-size: larger; font-weight: bolder">
                         {{ __('مستخدمين') }}
                     </x-jet-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('issues') }}" :active="request()->routeIs('issues')">
+                    <x-jet-nav-link href="{{ route('issues') }}" :active="request()->routeIs('issues')" style="font-size: larger; font-weight: bolder">
                         {{ __('تبليغات') }}
                     </x-jet-nav-link>
                 </div>

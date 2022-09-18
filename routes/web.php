@@ -133,6 +133,8 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/upload/issue', function 
 })->name('issue.upload');
 Route::middleware('auth:sanctum')->post('/store/issue' , [Controller::class, 'storeIssue']);
 Route::middleware('auth:sanctum')->post('/store/ressource' , [Controller::class, 'storeRessource']);
+Route::middleware('auth:sanctum')->post('/ressource/update' , [Controller::class, 'resUpdate']);
+
 Route::middleware('auth:sanctum')->get('/get/users' , [Controller::class, 'getUsers']);
 Route::middleware('auth:sanctum')->get('/user/details' , [Controller::class, 'details']);
 Route::middleware('auth:sanctum')->get('/user/issue' , [Controller::class, 'getMyIssue']);

@@ -32,7 +32,7 @@ html {
   -moz-tab-size: 4; /* 3 */
   -o-tab-size: 4;
      tab-size: 4; /* 3 */
-  font-family: Nunito, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 4 */
+  font-family: Almarai, sans-serif; /* 4 */
 }
 
 /*
@@ -2343,7 +2343,7 @@ select {
   vertical-align: bottom;
 }
 .font-sans {
-  font-family: Nunito, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: Almarai, sans-serif;
 }
 .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -2687,8 +2687,8 @@ select {
 .ease-in {
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
-body{
-    font-family: 'Cairo', sans-serif;
+html{
+    font-family: 'Almarai', sans-serif;
 }
 .grayProblem {
     font-size: 10pt;
@@ -2703,7 +2703,7 @@ body{
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #888;
+    background: #00b630;
 }
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {

@@ -18,7 +18,7 @@
     <div class="bg-white h-fit">
         <div class="pt-6 pb-16 sm:pb-24">
             <nav aria-label="Breadcrumb" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-               <h1>Preview the issue</h1>
+               <h1 style="direction: rtl">معاينة المشكلة</h1>
             </nav>
             <div style="height: 90vh" class="mt-8 max-w-2xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8 py-8">
                 <div class="lg:grid lg:grid-cols-12 lg:auto-rows-min lg:gap-x-8 py-1 ">

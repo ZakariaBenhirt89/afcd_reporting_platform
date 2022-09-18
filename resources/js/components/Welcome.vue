@@ -31,7 +31,7 @@
                                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ person.title }}</td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ person.description }}</td>
                                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                    <a :id="person.id" @click="changeId" class="text-indigo-600 hover:text-indigo-900"
+                                    <a  :id="person.id" @click="changeId" class="text-indigo-600 hover:text-indigo-900"
                                     >تحديث</a
                                     >
                                 </td>
@@ -93,7 +93,7 @@
                                                     image-validate-size-max-width="100"
                                                     image-validate-size-max-height="100"
                                                     v-bind:files="myFiles"
-                                                    v-on:init="handleFilePondInit"
+                                                    v-on:init="handleFilePondInit2"
                                                 />
                                             </div>
                                         </div>
@@ -173,9 +173,8 @@
 
                                 <div class="pt-5">
                                     <div class="flex justify-end">
-                                        <button type="button" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">الغاء</button>
-                                        <button @click="saveRes" type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                                            <svg v-show="state" aria-hidden="true" class="mr-2 w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-stone-50" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <button v-if="edit"  @click="sendUpdate"  class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                            <svg  v-show="state" aria-hidden="true" class="mr-2 w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-stone-50" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
                                                 <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
                                             </svg>
@@ -245,7 +244,9 @@ export default {
         const cats = ref([])
         const  open = ref(false)
         const id = ref(0)
-        const update = ref({})
+        const update = new FormData()
+        const edit = ref(false)
+        const image2 = ref(false)
 
 
         return {
@@ -262,7 +263,9 @@ export default {
             cats,
             open,
             id,
-            update
+            update,
+            edit,
+            image2
         }
     },
     data: function () {
@@ -277,6 +280,8 @@ export default {
         },
         handleFilePondInit2: function () {
             console.log('FilePond has initialized2');
+            this.edit = true
+            this.image2 = true
             // example of instance method call on pond reference
             this.$refs.pond.getFiles();
             console.log(this.$refs.pond.getFiles())
@@ -355,12 +360,31 @@ export default {
             console.log("tata")
             console.log(e.target.id)
             this.id = e.target.id
+            if(e.target.id != '' && e.target.id != null){
+                this.update.append("id" , e.target.id)
+            }
             this.show2 = true
             console.log("the id" , this.id)
         },
         changeSometing(e){
+            this.edit = true
             console.log(e.target.name)
             console.log(e.target.value)
+            this.update.append(e.target.name , e.target.value)
+        },
+        sendUpdate(e){
+            e.preventDefault()
+            this.state = true
+            const token = document.querySelector("[name='csrf-token']").getAttribute("content")
+            if (token !== null){
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = token
+                axios.post('/ressource/update' , this.update).then((res) => {
+                    console.log(res)
+                    if (res.status == 200){
+                        this.show2 = false
+                    }
+                })
+            }
         }
 
     },
@@ -390,8 +414,8 @@ export default {
                         const res = JSON.parse(response);
                         console.log(res["path"])
                         this.issuePath = res["path"]
-                        if(this.id !==0){
-                            console.log("tata")
+                        if(this.image2){
+                           this.update.append('icon' , res["path"] )
                         }
                     },
                     onerror: (response) => response.data,

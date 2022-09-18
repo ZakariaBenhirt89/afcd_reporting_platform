@@ -2,8 +2,8 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-body{
-    font-family: 'Cairo', sans-serif;
+html{
+    font-family: 'Almarai', sans-serif;
 }
 .grayProblem {
     font-size: 10pt;
@@ -20,7 +20,7 @@ body{
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #888;
+    background: #00b630;
 }
 
 /* Handle on hover */

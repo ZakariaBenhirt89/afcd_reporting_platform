@@ -30302,7 +30302,9 @@ var people = [{
     var cats = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
     var open = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
     var id = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
-    var update = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)({});
+    var update = new FormData();
+    var edit = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
+    var image2 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
     return {
       show1: show1,
       show2: show2,
@@ -30317,7 +30319,9 @@ var people = [{
       cats: cats,
       open: open,
       id: id,
-      update: update
+      update: update,
+      edit: edit,
+      image2: image2
     };
   },
   data: function data() {
@@ -30333,7 +30337,9 @@ var people = [{
       console.log(this.$refs.pond.getFiles());
     },
     handleFilePondInit2: function handleFilePondInit2() {
-      console.log('FilePond has initialized2'); // example of instance method call on pond reference
+      console.log('FilePond has initialized2');
+      this.edit = true;
+      this.image2 = true; // example of instance method call on pond reference
 
       this.$refs.pond.getFiles();
       console.log(this.$refs.pond.getFiles());
@@ -30424,16 +30430,41 @@ var people = [{
       console.log("tata");
       console.log(e.target.id);
       this.id = e.target.id;
+
+      if (e.target.id != '' && e.target.id != null) {
+        this.update.append("id", e.target.id);
+      }
+
       this.show2 = true;
       console.log("the id", this.id);
     },
     changeSometing: function changeSometing(e) {
+      this.edit = true;
       console.log(e.target.name);
       console.log(e.target.value);
+      this.update.append(e.target.name, e.target.value);
+    },
+    sendUpdate: function sendUpdate(e) {
+      var _this5 = this;
+
+      e.preventDefault();
+      this.state = true;
+      var token = document.querySelector("[name='csrf-token']").getAttribute("content");
+
+      if (token !== null) {
+        (axios__WEBPACK_IMPORTED_MODULE_9___default().defaults.headers.common["X-CSRF-TOKEN"]) = token;
+        axios__WEBPACK_IMPORTED_MODULE_9___default().post('/ressource/update', this.update).then(function (res) {
+          console.log(res);
+
+          if (res.status == 200) {
+            _this5.show2 = false;
+          }
+        });
+      }
     }
   },
   mounted: function mounted() {
-    var _this5 = this;
+    var _this6 = this;
 
     var date = new Date();
 
@@ -30461,10 +30492,10 @@ var people = [{
             console.log(response);
             var res = JSON.parse(response);
             console.log(res["path"]);
-            _this5.issuePath = res["path"];
+            _this6.issuePath = res["path"];
 
-            if (_this5.id !== 0) {
-              console.log("tata");
+            if (_this6.image2) {
+              _this6.update.append('icon', res["path"]);
             }
           },
           onerror: function onerror(response) {
@@ -33191,7 +33222,11 @@ var _hoisted_2 = {
 var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", {
   "aria-label": "Breadcrumb",
   "class": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, "Preview the issue")], -1
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
+  style: {
+    "direction": "rtl"
+  }
+}, "معاينة المشكلة")], -1
 /* HOISTED */
 );
 
@@ -34109,15 +34144,7 @@ var _hoisted_57 = {
 var _hoisted_58 = {
   "class": "flex justify-end"
 };
-
-var _hoisted_59 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-  type: "button",
-  "class": "bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-}, "الغاء", -1
-/* HOISTED */
-);
-
-var _hoisted_60 = {
+var _hoisted_59 = {
   "aria-hidden": "true",
   "class": "mr-2 w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-stone-50",
   viewBox: "0 0 100 101",
@@ -34125,23 +34152,23 @@ var _hoisted_60 = {
   xmlns: "http://www.w3.org/2000/svg"
 };
 
-var _hoisted_61 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+var _hoisted_60 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   d: "M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z",
   fill: "currentColor"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_62 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+var _hoisted_61 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   d: "M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z",
   fill: "currentFill"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_63 = [_hoisted_61, _hoisted_62];
+var _hoisted_62 = [_hoisted_60, _hoisted_61];
 
-var _hoisted_64 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" حفظ");
+var _hoisted_63 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" حفظ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_stat = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("stat");
@@ -34251,7 +34278,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 "image-validate-size-max-width": "100",
                 "image-validate-size-max-height": "100",
                 files: _ctx.myFiles,
-                onInit: $options.handleFilePondInit
+                onInit: $options.handleFilePondInit2
               }, null, 8
               /* PROPS */
               , ["files", "onInit"])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [_hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
@@ -34351,15 +34378,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 onInit: $options.handleFilePondInit
               }, null, 8
               /* PROPS */
-              , ["files", "onInit"])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_57, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_58, [_hoisted_59, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+              , ["files", "onInit"])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_57, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_58, [$setup.edit ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+                key: 0,
                 onClick: _cache[8] || (_cache[8] = function () {
-                  return $options.saveRes && $options.saveRes.apply($options, arguments);
+                  return $options.sendUpdate && $options.sendUpdate.apply($options, arguments);
                 }),
-                type: "submit",
                 "class": "ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-              }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_60, _hoisted_63, 512
+              }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_59, _hoisted_62, 512
               /* NEED_PATCH */
-              )), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.state]]), _hoisted_64])])])])])];
+              )), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.state]]), _hoisted_63])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])])];
             }),
             _: 1
             /* STABLE */

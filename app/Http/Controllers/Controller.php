@@ -14,6 +14,7 @@ use App\Models\Issue;
 use App\Models\Report;
 use App\Models\Resource;
 use App\Models\User;
+use GuzzleHttp\Promise\Is;
 use http\Env\Response;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -324,6 +325,17 @@ class Controller extends BaseController
         'role' => 'user',
     ]);
     return response()->json(['id' => $user->id]);
+    }
+    public function resUpdate(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $input = $request->all();
+        $id = $request->input("id");
+        Log::info("the id is ".$id);
+        foreach ($input as $index => $item) {
+            Issue::where('id' , $id)
+                ->update([$index => $item]);
+        }
+        return response()->json(['result' => "done"]);
     }
 
     }

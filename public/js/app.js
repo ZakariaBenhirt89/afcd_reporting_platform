@@ -32970,8 +32970,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 "class": "inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:text-sm",
                 onClick: _cache[0] || (_cache[0] = function () {
                   return $options.handleClose && $options.handleClose.apply($options, arguments);
-                })
-              }, "Go back to dashboard")])])];
+                }),
+                style: {
+                  "text-align": "right"
+                }
+              }, "ارجع إلى لوحة القيادة")])])];
             }),
             _: 1
             /* STABLE */
@@ -33224,7 +33227,7 @@ var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   "class": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
   style: {
-    "direction": "rtl"
+    "text-align": "right"
   }
 }, "معاينة المشكلة")], -1
 /* HOISTED */
@@ -33260,8 +33263,11 @@ var _hoisted_8 = {
 };
 
 var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
-  "class": "text-sm font-medium text-gray-900"
-}, "Image preview", -1
+  "class": "text-sm font-medium text-gray-900",
+  style: {
+    "text-align": "right"
+  }
+}, "معاينة الصورة", -1
 /* HOISTED */
 );
 
@@ -33283,7 +33289,10 @@ var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 
 var _hoisted_13 = {
   key: 0,
-  "class": "text-sm font-medium text-gray-900"
+  "class": "text-sm font-medium text-gray-900",
+  style: {
+    "text-align": "right"
+  }
 };
 var _hoisted_14 = {
   key: 1,
@@ -33295,8 +33304,11 @@ var _hoisted_15 = {
 
 var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "comment",
-  "class": "block text-sm font-medium text-gray-700"
-}, "Add description", -1
+  "class": "block text-sm font-medium text-gray-700",
+  style: {
+    "text-align": "right"
+  }
+}, "اضف وصفا", -1
 /* HOISTED */
 );
 
@@ -33309,8 +33321,11 @@ var _hoisted_18 = {
 
 var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "location",
-  "class": "block text-sm font-medium text-gray-700"
-}, "update the state", -1
+  "class": "block text-sm font-medium text-gray-700",
+  style: {
+    "text-align": "right"
+  }
+}, " تحديث الحالة", -1
 /* HOISTED */
 );
 
@@ -33331,7 +33346,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     alt: "preview"
   }, null, 8
   /* PROPS */
-  , _hoisted_10)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, $props.admin == 'true' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h2", _hoisted_13, "Description and state ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.admin == 'true' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+  , _hoisted_10)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, $props.admin == 'true' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h2", _hoisted_13, "الوصف والحالة ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.admin == 'true' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $setup.desc = $event;
     }),
@@ -33357,7 +33372,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     type: "button",
     "class": "w-full items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-  }, "Save")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])])])]);
+  }, "حفظ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])])])]);
 }
 
 /***/ }),

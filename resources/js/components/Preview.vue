@@ -18,7 +18,7 @@
     <div class="bg-white h-fit">
         <div class="pt-6 pb-16 sm:pb-24">
             <nav aria-label="Breadcrumb" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-               <h1 style="direction: rtl">معاينة المشكلة</h1>
+               <h1 style="text-align: right">معاينة المشكلة</h1>
             </nav>
             <div style="height: 90vh" class="mt-8 max-w-2xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8 py-8">
                 <div class="lg:grid lg:grid-cols-12 lg:auto-rows-min lg:gap-x-8 py-1 ">
@@ -32,23 +32,23 @@
 
                         <!-- Product details -->
                         <div class="mt-10">
-                            <h2 class="text-sm font-medium text-gray-900">Image preview</h2>
+                            <h2 class="text-sm font-medium text-gray-900" style="text-align: right">معاينة الصورة</h2>
                             <img style="height: 100%;width: 100%" :src="image" alt="preview"/>
                         </div>
 
                         <div class="mt-8 border-t border-gray-200 pt-8" >
                             <div class="md:hidden" id="map3" style="width: 100%;height: 100%"></div>
-                            <h2 class="text-sm font-medium text-gray-900" v-if="admin == 'true'">Description and state </h2>
+                            <h2 class="text-sm font-medium text-gray-900" v-if="admin == 'true'" style="text-align: right">الوصف والحالة </h2>
 
                             <div class="mt-4 prose prose-sm text-gray-500" v-if="admin == 'true'">
                                 <div class="my-4">
-                                    <label for="comment" class="block text-sm font-medium text-gray-700">Add description</label>
+                                    <label for="comment" class="block text-sm font-medium text-gray-700" style="text-align: right">اضف وصفا</label>
                                     <div class="mt-1">
                                         <textarea v-model="desc" rows="4" name="comment" id="comment" class="shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
                                     </div>
                                 </div>
                                 <div class="my-4">
-                                    <label for="location" class="block text-sm font-medium text-gray-700">update the state</label>
+                                    <label for="location" class="block text-sm font-medium text-gray-700" style="text-align: right"> تحديث الحالة</label>
                                     <select v-model="state" id="location" name="location" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm rounded-md">
                                         <option></option>
                                         <option value="pending">pending</option>
@@ -63,7 +63,7 @@
 
                         <!-- Policies -->
                         <section aria-labelledby="policies-heading" class="mt-5">
-                            <button @click="store" v-if="state !== '' && desc !== ''" type="button" class="w-full items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Save</button>
+                            <button @click="store" v-if="state !== '' && desc !== ''" type="button" class="w-full items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">حفظ</button>
                         </section>
                     </div>
                 </div>
